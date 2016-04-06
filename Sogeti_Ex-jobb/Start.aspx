@@ -227,7 +227,7 @@
 
             //$(window).on('resize', autocollapse); // when window is resized
 
-            $(window).on('resize', function (e) {
+            $(window).on('resize', function (e) { // when window is resized
 
                 autocollapse();
 
