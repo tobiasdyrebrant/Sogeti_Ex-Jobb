@@ -96,6 +96,7 @@
   <ItemGroup>
     <Content Include="Content\fixed-table-header.css" />
     <Content Include="Content\responsive-table.css" />
+    <Content Include="Content\scrollTopStyle.css" />
     <Content Include="Content\settings.css" />
     <Content Include="Content\logotyp.jpg" />
     <Content Include="Content\simple-sidebar.css" />
