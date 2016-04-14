@@ -14,3 +14,15 @@
     text-align:center;
 }
 
+
+.nav.nav-pills.nav-stacked > li > a{
+    height:75px;
+    border-radius: 0 !important;
+
+	color: rgb(0, 0, 0); /* #005b7f */
+	border: 0;
+    
+    width: 95%;
+	margin-left: 5%;
+	box-shadow: 0 0 10px rgb(0, 0, 0);
+}

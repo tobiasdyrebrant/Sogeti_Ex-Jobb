@@ -4,22 +4,22 @@
     .stacktable.small-only { display: none; }
 
     .table-fixed thead {
-      width: 97%
+      width: 100%
     }
     .table-fixed tbody {
-      height: 300px;
+
       overflow-y: auto;
       width: 100%;
       outline: solid;
       outline-color: #0a8bb7;
+      box-shadow: 0 0 10px rgb(0, 0, 0);
       
     }
     .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
       display: block;
     }
     .table-fixed tbody td, .table-fixed thead > tr > th {
-      float:none;
-      width: 14.28%;
+      float:left;
     }
 }
 
