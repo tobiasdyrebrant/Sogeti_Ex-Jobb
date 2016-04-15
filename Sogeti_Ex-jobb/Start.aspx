@@ -178,18 +178,35 @@
                     |           SCP
                 </span> 
             </div>
-            <div class="col-md-offset-4 col-md-1" style="color: white; text-align:right;">
-                <span class="glyphicon glyphicon-lock">Logout</span> 
+
+            <div class="col-md-offset-4 col-md-1"> 
+                <div class="dropdown ">
+                    <button class="dropbtn"><span class="fa fa-bell-o"><span class="label label-pill label-danger">2</span></span></button>
+                    <div class="dropdown-content dropdown-menu-right">
+                        <a href="#"><span class="glyphicon glyphicon-grain"><span class="label label-pill label-danger">2</span></span></a>
+                        <a href="#"><span class="fa fa-wrench"><span class="label label-pill label-danger">2</span></span></a>
+                        <a href="#"><span class="fa fa-coffee"><span class="label label-pill label-danger">2</span></span></a>
+                        <a href="#"><span class="fa fa-hourglass-half"><span class="label label-pill label-danger">2</span></span></a>
+                        <a href="#"><span class="fa fa-close"><span class="label label-pill label-danger">2</span></span></a>
+                        <a href="#"><span class="fa fa-archive"><span class="label label-pill label-danger">2</span></span></a>
+                    </div>
+                </div> 
             </div>
-            <div class="dropdown col-md-2" style="color: white; text-align:right;">
-                <button class="btn btn-default dropdown-toggle" type="button" id="languageSetting" data-toggle="dropdown">
-                    Language
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="languageSetting">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">English</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Chinese</a></li>
-                </ul>
+
+            <div class="col-md-1">
+                <div class="col-md-12 lock">
+                        <span class="fa fa-lock"></span>
+                </div>
+            </div>
+
+            <div class="col-md-1" style="color: white;">         
+                <div class="dropdown">
+                    <button class="dropbtn"><span class="fa fa-language"></span></button>
+                    <div class="dropdown-content dropdown-menu-right">
+                        <a href="#">English</a>
+                        <a href="#">Chinese</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -216,11 +233,18 @@
             
         <div class="tab-content">
             <div id="home" class ="tab-pane fade">
-               <i class="fa fa-camera-retro" aria-hidden="true"></i><h3>Home</h3>
+                <div class="dropdown">
+                  <button class="dropbtn"><span class="fa fa-bell-o"></span></button>
+                  <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                  </div>
+                </div>
             </div>
             <div id="RFQ" class ="tab-pane fade in active">
 
-                <div class="container-fluid">
+<%--                <div class="container-fluid">
                     <div class="row" id="rfqTopRow">
                         <div class="col-md-2">
                             <div class="input-group">
@@ -244,7 +268,7 @@
                           </ul>
                         </div>
                     </div>
-                </div>
+                </div>--%>
 
                 <div class="col-md-2">          
                     <ul class="nav nav-pills nav-stacked" role="tablist" id="pillList">
@@ -253,7 +277,27 @@
                         <li><a data-toggle="pill" href="#">Waiting Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
                         <li><a data-toggle="pill" href="#">Waiting Confirmation<span class="fa fa-hourglass-half pull-right"></span></a></li>
                         <li><a data-toggle="pill" href="#">Closed<span class="fa fa-close pull-right"></span></a></li>
-                        <li><a data-toggle="pill" href="#">Archived<span class="fa fa-archive pull-right"></span></a></li>                                      
+                        <li><a data-toggle="pill" href="#">Archived<span class="fa fa-archive pull-right"></span></a></li>      
+                        <li class="dropup"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="caret pull-right"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Divison" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <input type="search" class="form-control" placeholder="Search" />
+                                </li>
+                                <li>
+                                    <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
+                                </li>
+                            </ul>
+                        </li>                                 
                     </ul>
                 </div>
 
