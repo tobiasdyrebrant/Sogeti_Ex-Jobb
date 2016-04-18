@@ -152,6 +152,11 @@
             $('a[data-toggle="tab"]').on('click', function (e) {
                 $('#lastTab li').removeClass('active');
                 $(this).addClass('active');
+                console.log(this);
+            });
+
+            $('[data-toggle="popover"]').on('click', function (e) {
+                $("#rfqHome").hide();
             });
 
             $('.scrollToTop').click(function () {
@@ -179,18 +184,31 @@
                 </span> 
             </div>
 
-            <div class="col-md-offset-4 col-md-1"> 
+            <div class="col-md-offset-3 col-md-1"> 
                 <div class="dropdown ">
-                    <button class="dropbtn"><span class="fa fa-bell-o"><span class="label label-pill label-danger">2</span></span></button>
+                    <button class="dropbtn"><span class="fa fa-bell-o"><span class="label label-pill label-danger">6</span></span></button>
                     <div class="dropdown-content dropdown-menu-right">
-                        <a href="#"><span class="glyphicon glyphicon-grain"><span class="label label-pill label-danger">2</span></span></a>
-                        <a href="#"><span class="fa fa-wrench"><span class="label label-pill label-danger">2</span></span></a>
-                        <a href="#"><span class="fa fa-coffee"><span class="label label-pill label-danger">2</span></span></a>
-                        <a href="#"><span class="fa fa-hourglass-half"><span class="label label-pill label-danger">2</span></span></a>
-                        <a href="#"><span class="fa fa-close"><span class="label label-pill label-danger">2</span></span></a>
-                        <a href="#"><span class="fa fa-archive"><span class="label label-pill label-danger">2</span></span></a>
+                        <a href="#"><span class="glyphicon glyphicon-grain"><span class="label label-pill label-danger">2</span></span> RFQ</a>
+                        <a href="#"><span class="fa fa-wrench"><span class="label label-pill label-danger">2</span></span> Design Notification</a>
+                        <a href="#"><span class="fa fa-coffee"><span class="label label-pill label-danger">2</span></span> Claims</a>
+                        <a href="#"><span class="fa fa-hourglass-half"><span class="label label-pill label-danger">2</span></span> Design Notification</a>
+                        <a href="#"><span class="fa fa-close"><span class="label label-pill label-danger">2</span></span> RFQ</a>
+                        <a href="#"><span class="fa fa-archive"><span class="label label-pill label-danger">2</span></span> Claims</a>
                     </div>
                 </div> 
+            </div>
+
+            <div class="col-md-1">
+                <div class="dropdown">
+                    <button class="dropbtn"><span class="fa fa-comment"><span class="label label-pill label-danger">5</span></span></button>
+                    <div class="dropdown-content dropdown-menu-right">
+                        <a href="#"><p><span class="glyphicon glyphicon-grain"> RFQ</span></p>Item number</a>
+                        <a href="#"><p><span class="fa fa-wrench"> Design Notification</span></p>Item number</a>
+                        <a href="#"><p><span class="fa fa-coffee"> Design Notification</span></p>Item number</a>
+                        <a href="#"><p><span class="fa fa-hourglass-half"> Claims</span></p>Item number</a>
+                        <a href="#"><p><span class="fa fa-hourglass-half"> Claims</span></p>Item number</a>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-1">
@@ -233,15 +251,9 @@
             
         <div class="tab-content">
             <div id="home" class ="tab-pane fade">
-                <div class="dropdown">
-                  <button class="dropbtn"><span class="fa fa-bell-o"></span></button>
-                  <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                  </div>
-                </div>
+                Home
             </div>
+
             <div id="RFQ" class ="tab-pane fade in active">
 
 <%--                <div class="container-fluid">
@@ -269,337 +281,340 @@
                         </div>
                     </div>
                 </div>--%>
-
-                <div class="col-md-2">          
-                    <ul class="nav nav-pills nav-stacked" role="tablist" id="pillList">
-                        <li class="active"><a  data-toggle="pill" href="#">New<span class="glyphicon glyphicon-grain pull-right"></span></a></li>
-                        <li><a data-toggle="pill" href="#">Work in Progress<span class="fa fa-wrench pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
-                        <li><a data-toggle="pill" href="#">Waiting Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
-                        <li><a data-toggle="pill" href="#">Waiting Confirmation<span class="fa fa-hourglass-half pull-right"></span></a></li>
-                        <li><a data-toggle="pill" href="#">Closed<span class="fa fa-close pull-right"></span></a></li>
-                        <li><a data-toggle="pill" href="#">Archived<span class="fa fa-archive pull-right"></span></a></li>      
-                        <li class="dropup"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="caret pull-right"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Divison" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary" type="button">
-                                                Set
-                                            </button>
-                                        </span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <input type="search" class="form-control" placeholder="Search" />
-                                </li>
-                                <li>
-                                    <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
-                                </li>
-                            </ul>
-                        </li>                                 
-                    </ul>
-                </div>
-
-                <div class="container col-md-10">
-                    <div class="row">
-                        <div class="">
-                            <table class="table table-fixed">
-                              <thead>
-                                <tr>
-                                    <th class="col-xs-2">Number</th>
-                                    <th class="col-xs-2">Title</th>
-                                    <th class="col-xs-2">DN Class</th>
-                                    <th class="col-xs-2">Due Date</th>
-                                    <th class="col-xs-2">Com. Manager</th>
-                                    <th class="col-xs-2">Created</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                    <td class="col-xs-2"><a href="#" title="Header" data-toggle="popover" data-trigger="hover" data-content="Some content">16-SoIn-4177</a></td>
-                                    <td class="col-xs-2">test</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">2</td>
-                                    <td class="col-xs-2">test2</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">3</td>
-                                    <td class="col-xs-2">test3</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr<tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr<tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-2">4</td>
-                                    <td class="col-xs-2">test4</td>
-                                    <td class="col-xs-2">-</td>
-                                    <td class="col-xs-2">2016-03-12</td>
-                                    <td class="col-xs-2">Sogeti Internal</td>
-                                    <td class="col-xs-2">2016-01-01</td>
-                                </tr>
-
-                              </tbody>
-                            </table>
-                        </div> 
+                <div id="rfqHome">
+                    <div class="col-md-2">          
+                        <ul class="nav nav-pills nav-stacked" role="tablist" id="pillList">
+                            <li class="active"><a  data-toggle="pill" href="#">New<span class="glyphicon glyphicon-grain pull-right"></span></a></li>
+                            <li><a data-toggle="pill" href="#">Work in Progress<span class="fa fa-wrench pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
+                            <li><a data-toggle="pill" href="#">Waiting Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
+                            <li><a data-toggle="pill" href="#">Waiting Confirmation<span class="fa fa-hourglass-half pull-right"></span></a></li>
+                            <li><a data-toggle="pill" href="#">Closed<span class="fa fa-close pull-right"></span></a></li>
+                            <li><a data-toggle="pill" href="#">Archived<span class="fa fa-archive pull-right"></span></a></li>      
+                            <li class="dropup"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="caret pull-right"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Divison" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-secondary" type="button">
+                                                    Set
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input type="search" class="form-control" placeholder="Search" />
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
+                                    </li>
+                                </ul>
+                            </li>                                 
+                        </ul>
                     </div>
+
+                    <div class="container col-md-10">
+                        <div class="row">
+                            <div class="">
+                                <table class="table table-fixed">
+                                  <thead>
+                                    <tr>
+                                        <th class="col-xs-2">Number</th>
+                                        <th class="col-xs-2">Title</th>
+                                        <th class="col-xs-2">DN Class</th>
+                                        <th class="col-xs-2">Due Date</th>
+                                        <th class="col-xs-2">Com. Manager</th>
+                                        <th class="col-xs-2">Created</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                        <td class="col-xs-2"><a href="#" title="Header" data-toggle="popover" data-trigger="hover" data-content="Some content">16-SoIn-4177</a></td>
+                                        <td class="col-xs-2">test</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">2</td>
+                                        <td class="col-xs-2">test2</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">3</td>
+                                        <td class="col-xs-2">test3</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr<tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr<tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2">4</td>
+                                        <td class="col-xs-2">test4</td>
+                                        <td class="col-xs-2">-</td>
+                                        <td class="col-xs-2">2016-03-12</td>
+                                        <td class="col-xs-2">Sogeti Internal</td>
+                                        <td class="col-xs-2">2016-01-01</td>
+                                    </tr>
+
+                                  </tbody>
+                                </table>
+                            </div> 
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
 
                 
