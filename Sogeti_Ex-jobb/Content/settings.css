@@ -101,3 +101,9 @@
     border-radius: 1em;
     font-size: 14px;   
 }
+
+
+.vertical-align-baseline {
+    display:flex;
+    align-items:baseline;
+}
