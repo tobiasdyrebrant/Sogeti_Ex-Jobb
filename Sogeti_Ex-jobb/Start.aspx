@@ -238,7 +238,7 @@
         </div>
     </div>
 
-     <div class="container-fluid">
+    <div class="container-fluid">
 	    <div class="row">
             <ul class="nav nav-tabs" id="tabs">
                 <li><a data-toggle="tab" href="#home">Home</a></li>       
@@ -623,7 +623,7 @@
 
                     </div>
 
-                    <div id="itemPage" style="display: none">
+                    <div id="itemPage" style="display: none;">
                         <div class="col-md-2">     
                             <h4>16-SoIn-4177</h4>
                             <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListItemPage">
@@ -642,33 +642,133 @@
                                         <h3>Overview</h3>        
                                     </div>
                                     <div style="float:left; padding-left: 2em; font-size: 6px;">
-                                        <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer</h5>      
+                                        <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>      
+                                    </div>
+                                </div>                              
+                                <form>
+                                    <div class="row">
+                                        <div class="form-group col-xs-2 col-md-2">
+                                            <label for="rfqNumber">RFQ-Number</label>
+                                            <input type="text" class="form-control" id="rfqNumber" placeholder="16-SoIn-4177" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-2 col-md-2">
+                                            <label for="dnNumber">DN-Number</label>
+                                            <input type="text" class="form-control" id="dnNumber" placeholder="-" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-2 col-md-2">
+                                            <label for="title">Title</label>
+                                            <input type="text" class="form-control" id="title" placeholder="test" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-2 col-md-2">
+                                            <label for="project">Project</label>
+                                            <input type="text" class="form-control" id="project" placeholder="---" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-2 col-md-2">
+                                            <label for="createdDate">Created Date</label>
+                                            <input type="text" class="form-control" id="createdDate" placeholder="2016-01-01" readonly="readonly" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-xs-2 col-md-2">
+                                            <label for="createdBy">Created By</label>
+                                            <input type="text" class="form-control" id="createdBy" placeholder="Sogeti Internal" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-2 col-md-2">
+                                            <label for="replyDate">Reply Date</label>
+                                            <input type="text" class="form-control" id="replyDate" placeholder="2016-03-15" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-3 col-md-3">
+                                            <div class="input-group">
+                                                <label for="validity">Validity</label>
+                                                <input type="text" class="form-control" id="validity" placeholder="2016-03-15" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                        Set
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-xs-3 col-md-3">
+                                            <label for="contactPerson">Contact Person</label>
+                                            <input type="text" class="form-control" id="contactPerson" placeholder="Sogeti External" readonly="readonly" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-xs-3 col-md-3">
+                                            <label for="owner">Owner</label>
+                                            <input type="text" class="form-control" id="owner" placeholder="Internal, Sogeti" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-3 col-md-3">
+                                            <label for="email">E-mail</label>
+                                            <input type="text" class="form-control" id="email" placeholder="example@sogeti.se" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-3 col-md-3">
+                                            <label for="contactPersonOwner">Contact Person</label>
+                                            <input type="text" class="form-control" id="contactPersonOwner" placeholder="Sogeti External" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div id="items" class="tab-pane fade">
+                                <div class="row vertical-align-baseline">
+                                    <div style="float:left;">
+                                        <h3>Items</h3>        
+                                    </div>
+                                    <div style="float:left; padding-left: 2em; font-size: 6px;">
+                                        <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>    
                                     </div>
                                 </div>
-
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            </div>
-                            <div id="items" class="tab-pane fade">
-                                <h3>Items</h3>
                                 <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                             </div>
                             <div id="attachments" class="tab-pane fade">
-                                <h3>Attachments</h3>
+                                <div class="row vertical-align-baseline">
+                                    <div style="float:left;">
+                                        <h3>Attachments</h3>        
+                                    </div>
+                                    <div style="float:left; padding-left: 2em; font-size: 6px;">
+                                        <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>     
+                                    </div>
+                                </div>
                                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
                             </div>
                             <div id="logs" class="tab-pane fade">
-                                <h3>Logs</h3>
+                                <div class="row vertical-align-baseline">
+                                    <div style="float:left;">
+                                        <h3>Logs</h3>        
+                                    </div>
+                                    <div style="float:left; padding-left: 2em; font-size: 6px;">
+                                        <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>     
+                                    </div>
+                                </div>
                                 <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                             </div>
                             <div id="comments" class="tab-pane fade">
-                                <h3>Comments</h3>
+                                <div class="row vertical-align-baseline">
+                                    <div style="float:left;">
+                                        <h3>Comments</h3>        
+                                    </div>
+                                    <div style="float:left; padding-left: 2em; font-size: 6px;">
+                                        <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>    
+                                    </div>
+                                </div>
                                 <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                
+ 
                 <div id="designNotifications" class ="tab-pane fade">
                     Design Notification
                 </div>
@@ -688,7 +788,6 @@
         </div>
      </div>
     
-
     <div class="container">
         <nav class="navbar navbar-default navbar-fixed-bottom text-center text-success" id="footer">
             <div class="navbar-inner navbar-content-center"  >
