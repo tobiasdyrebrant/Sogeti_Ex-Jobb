@@ -74,7 +74,23 @@
 
         };
 
+        var loadCorrectSide = function(hash)
+        {
+            var sides = hash.split("#");
+            
+            $("#tabs").find('a[href="#' + sides[1] + "\"]").trigger("click");
+        }
+
         $(document).ready(function () {
+            if (window.location.hash == "")
+            {
+                window.location.hash = "#home";
+            }
+            else {
+                loadCorrectSide(window.location.hash);
+            }
+            
+
             var small = false;
             var smallPills = false;
 
@@ -159,9 +175,57 @@
                 {
                     $('#rfqHome').show();
                     $('#itemPage').hide();
+
+                    $('#pillList li.active').removeClass("active");
+                    $("#pillList li").first().addClass("active")
                 }
-                console.log(this);
             });
+
+
+            $(function () {
+                var hash = window.location.hash;
+                hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+                
+                $('.nav-tabs a').click(function (e) {
+                    $(this).tab('show');
+                    var scrollmem = $('body').scrollTop() || $('html').scrollTop();
+                    window.location.hash = this.hash;
+                    $('html,body').scrollTop(scrollmem);
+                });
+
+                $('.nav-pills a').click(function (e) {
+                    $(this).tab('show');
+                    var scrollmem = $('body').scrollTop() || $('html').scrollTop();
+                    window.location.hash = this.hash;
+                    $('html,body').scrollTop(scrollmem);
+                });
+            });
+
+            $(function () {
+                var hash = window.location.hash;
+                hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+                $('.table-fixed a').click(function (e) {
+                    $(this).tab('show');
+                    var scrollmem = $('body').scrollTop() || $('html').scrollTop();
+                    window.location.hash += this.hash;
+                    $('html,body').scrollTop(scrollmem);
+                });
+            });
+
+
+
+            $(document).keypress(function (e) {              
+                if (e.which == 98) {
+                    window.history.back();
+                    setTimeout(
+                      function () {
+                          window.location.reload();
+                      },
+                    1);
+                }
+            });
+
 
             $('[data-toggle="popover"]').on('click', function (e) {
                 $("#rfqHome").hide();
@@ -172,6 +236,17 @@
                 $('html, body').animate({ scrollTop: 0 }, 800);
                 return false;
             });
+
+            $('#backButton').click(function () {
+                window.history.back();
+                setTimeout(
+                  function () {
+                      window.location.reload();
+                  },
+                1);
+            })
+
+
 
 
         });
@@ -242,11 +317,12 @@
 	    <div class="row">
             <ul class="nav nav-tabs" id="tabs">
                 <li><a data-toggle="tab" href="#home">Home</a></li>       
-                <li class="active"><a data-toggle="tab" href="#RFQ" id="rfqToggle">RFQ</a></li>
+                <li><a data-toggle="tab" href="#RFQ" id="rfqToggle">RFQ</a></li>
                 <li><a data-toggle="tab" href="#designNotifications">Design Notification</a></li>
                 <li><a data-toggle="tab" href="#supplierAudit">Supplier Audit</a></li>
                 <li><a data-toggle="tab" href="#claims">Claims</a></li>
                 <li><a data-toggle="tab" href="#supplierAnalysis">Supplier Analysis</a></li>	  
+                <li><a data-toggle="tab" href="#search">Search</a></li>	
 
                 <li id="lastTab" >
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -262,7 +338,7 @@
                     Home
                 </div>
 
-                <div id="RFQ" class ="tab-pane fade in active">
+                <div id="RFQ" class ="tab-pane fade">
 
     <%--                <div class="container-fluid">
                         <div class="row" id="rfqTopRow">
@@ -292,13 +368,13 @@
                     <div id="rfqHome">
                         <div class="col-md-2">          
                             <ul class="nav nav-pills nav-stacked" role="tablist" id="pillList">
-                                <li class="active"><a  data-toggle="pill" href="#">New<span class="glyphicon glyphicon-grain pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#">Work in Progress<span class="fa fa-wrench pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
-                                <li><a data-toggle="pill" href="#">Waiting Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#">Waiting Confirmation<span class="fa fa-hourglass-half pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#">Closed<span class="fa fa-close pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#">Archived<span class="fa fa-archive pull-right"></span></a></li>      
-                                <li class="dropup"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="caret pull-right"></span></a>
+                                <li class="active"><a data-toggle="pill" href="#RFQ#new">New<span class="glyphicon glyphicon-grain pull-right"></span></a></li>
+                                <li><a data-toggle="pill" href="#RFQ#workInProgress">Work in Progress<span class="fa fa-wrench pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
+                                <li><a data-toggle="pill" href="#RFQ#waitingEvaluation">Waiting Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
+                                <li><a data-toggle="pill" href="#RFQ#waitingConfirmation">Waiting Confirmation<span class="fa fa-hourglass-half pull-right"></span></a></li>
+                                <li><a data-toggle="pill" href="#RFQ#closed">Closed<span class="fa fa-close pull-right"></span></a></li>
+                                <li><a data-toggle="pill" href="#RFQ#archived">Archived<span class="fa fa-archive pull-right"></span></a></li>      
+                                <li class="dropup"> <a href="#RFQ#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="caret pull-right"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <div class="input-group">
@@ -337,7 +413,7 @@
                                       </thead>
                                       <tbody>
                                         <tr>
-                                            <td class="col-xs-2"><a href="#" title="Header" data-toggle="popover" data-trigger="hover" data-content="Some content">16-SoIn-4177</a></td>
+                                            <td class="col-xs-2"><a href="#16-SoIn-4177" title="Header" data-toggle="popover" data-trigger="hover" data-content="Some content">16-SoIn-4177</a></td>
                                             <td class="col-xs-2">test</td>
                                             <td class="col-xs-2">-</td>
                                             <td class="col-xs-2">2016-03-12</td>
@@ -790,10 +866,12 @@
     
     <div class="container">
         <nav class="navbar navbar-default navbar-fixed-bottom text-center text-success" id="footer">
-            <div class="navbar-inner navbar-content-center"  >
-                <p class="text-muted credit col-md-12">Atlas Copco | Supplier Collaboration Portal</p>
-            </div>
+            <div class="navbar-inner">
+                <p class="text-muted credit col-md-offset-1 col-md-10">Atlas Copco | Supplier Collaboration Portal</p>
+                <a class="text-muted credit col-md-1" id="backButton" style="float:right"><span class="fa fa-arrow-circle-left fa-3x"></span></a>
+            </div>                                          
         </nav>
+        
     </div>
 
     <a href="#" class="scrollToTop">Scroll To Top</a>
