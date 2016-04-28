@@ -246,9 +246,26 @@
                 1);
             })
 
+            $(".dropdown-menu li a.selectable").click(function () {
+                $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+                $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+            });
 
+            $('.dropdown.keep-open').on({
+                "shown.bs.dropdown": function () { this.closable = false; },
+                "click": function () { this.closable = true; },
+                "hide.bs.dropdown": function () { return this.closable; }
+            });
 
+            $('.selectableRow').click(function () {
+                $('#itemList').slideUp();
+                $('#itemInfo').slideDown();
+            });
 
+            $('#toggleItemList').click(function(){
+                $('#itemList').slideDown();
+                $('#itemInfo').slideUp();
+            })
         });
 
     </script>
@@ -555,13 +572,6 @@
                                             <td class="col-xs-2">2016-03-12</td>
                                             <td class="col-xs-2">Sogeti Internal</td>
                                             <td class="col-xs-2">2016-01-01</td>
-                                        </tr<tr>
-                                            <td class="col-xs-2">4</td>
-                                            <td class="col-xs-2">test4</td>
-                                            <td class="col-xs-2">-</td>
-                                            <td class="col-xs-2">2016-03-12</td>
-                                            <td class="col-xs-2">Sogeti Internal</td>
-                                            <td class="col-xs-2">2016-01-01</td>
                                         </tr>
                                         <tr>
                                             <td class="col-xs-2">4</td>
@@ -666,7 +676,16 @@
                                             <td class="col-xs-2">2016-03-12</td>
                                             <td class="col-xs-2">Sogeti Internal</td>
                                             <td class="col-xs-2">2016-01-01</td>
-                                        </tr<tr>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-xs-2">4</td>
+                                            <td class="col-xs-2">test4</td>
+                                            <td class="col-xs-2">-</td>
+                                            <td class="col-xs-2">2016-03-12</td>
+                                            <td class="col-xs-2">Sogeti Internal</td>
+                                            <td class="col-xs-2">2016-01-01</td>
+                                        </tr>
+                                        <tr>
                                             <td class="col-xs-2">4</td>
                                             <td class="col-xs-2">test4</td>
                                             <td class="col-xs-2">-</td>
@@ -722,7 +741,7 @@
                                     </div>
                                 </div>                              
                                 <form>
-                                    <div class="row">
+                                    <div class="row formBackground">
                                         <div class="form-group col-xs-2 col-md-2">
                                             <label for="rfqNumber">RFQ-Number</label>
                                             <input type="text" class="form-control" id="rfqNumber" placeholder="16-SoIn-4177" readonly="readonly" />
@@ -749,7 +768,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row formBackground">
                                         <div class="form-group col-xs-2 col-md-2">
                                             <label for="createdBy">Created By</label>
                                             <input type="text" class="form-control" id="createdBy" placeholder="Sogeti Internal" readonly="readonly" />
@@ -778,7 +797,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row formBackground">
                                         <div class="form-group col-xs-3 col-md-3">
                                             <label for="owner">Owner</label>
                                             <input type="text" class="form-control" id="owner" placeholder="Internal, Sogeti" readonly="readonly" />
@@ -790,8 +809,69 @@
                                         </div>
 
                                         <div class="form-group col-xs-3 col-md-3">
-                                            <label for="contactPersonOwner">Contact Person</label>
-                                            <input type="text" class="form-control" id="contactPersonOwner" placeholder="Sogeti External" readonly="readonly" />
+                                            <label for="phoneNumber">Phone Number</label>
+                                            <input type="text" class="form-control" id="phoneNumber" placeholder="07X-XXXXXXX" readonly="readonly" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row formBackground">
+                                        <div class="form-group col-md-6">
+                                            <label for="supplierStakeholders">Supplier Stakeholders</label><br />
+                                            <div class="btn-group">
+                                                <div class="dropdown" id="supplierStakeholders" style="float:left;">
+                                                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 300px">
+                                                    Select Stakeholder
+                                                    <span class="caret pull-right"></span>
+                                                  </button>
+
+                                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 300px; text-align:center;">
+                                                    <li><a class="selectable">Name Namesson</a></li>
+                                                    <li><a class="selectable">Example Exampleton</a></li>
+                                                    <li><a class="selectable">Sample Samplebury</a></li>
+                                                  </ul>
+                                                </div>
+                                                <button class="btn btn-secondary" type="button" style="float:left">
+                                                    Add
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6">    
+                                            <div class="dropdown keep-open" id="currentStakeholders" style="margin-top: 25px;">
+                                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 300px;">
+                                                Click to view current stakeholders
+                                                <span class="label label-pill label-danger" style="border-radius: 1em;">2</span>
+                                                </button>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 300px; text-align:center;">
+                                                    <li><a>Name Nameford</a></li>
+                                                    <li><a>Example Exampleham</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-10">
+                                            <label for="comment">Comment: </label>
+                                            <textarea class="form-control" rows="3" id="comment"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-10">
+                                            <button class="btn btn-default" type="button">
+                                                Close
+                                            </button>
+                                            <button class="btn btn-success" type="button">
+                                                Save
+                                            </button>
+                                            <button class="btn btn-danger" type="button">
+                                                Reject RFQ
+                                            </button>
+                                            <button class="btn btn-primary" type="button">
+                                                Send
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
@@ -806,8 +886,58 @@
                                         <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>    
                                     </div>
                                 </div>
-                                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
+                              
+                                <div class="container col-mg-12" id="itemInfo" style="display: none;">
+                                    <div class="row vertical-align-baseline">                                   
+                                        <div class="itemInfo" style="float:left;">
+                                            <h3>Wheel</h3>        
+                                        </div>
+                                        <button type="button" class="btn btn-danger" style="margin-left:50px" >Reject Item</button>
+                                        <button type="button" class="btn btn-primary" id="toggleItemList" style=" margin-left:50px" >Show list again</button>                                        
+                                    </div>
+                                </div>
+                                            
+                                <div id="itemList">                                          
+                                    <div class="container col-md-10" >
+                                        <div class="row">
+                                            <div class="">
+                                                <table class="table" style="outline: solid; outline-color: #0a8bb7;">
+                                                    <thead>
+                                                        <tr style="background-color: #0a8bb7; color: white;">
+                                                            <th class="col-xs-2">Name</th>
+                                                            <th class="col-xs-2">Atlas Item No</th>
+                                                            <th class="col-xs-2">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="selectableRow" style="background-color:#4CAF50; color: white;">
+                                                            <td class="col-xs-2">Wheel</td>
+                                                            <td class="col-xs-2">1</td>
+                                                            <td class="col-xs-2"><i class="fa fa-check" aria-hidden="true"></i></td>
+                                                        </tr>
+                                                        <tr class="selectableRow" style="background-color:indianred; color: white;">
+                                                            <td class="col-xs-2">Drill</td>
+                                                            <td class="col-xs-2">2</td>
+                                                            <td class="col-xs-2"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></td>
+                                                        </tr>
+                                                        <tr class="selectableRow" style="background-color:#4CAF50; color: white;">
+                                                            <td class="col-xs-2">Crane</td>
+                                                            <td class="col-xs-2">3</td>
+                                                            <td class="col-xs-2"><i class="fa fa-check" aria-hidden="true"></i></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table> 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="container col-md-10" style="color:white; background-color: #4CAF50; opacity:0.7">
+                                        All items are answered and ready to be sent
+                                    </div>
+
+                                </div>
+                            </div>    
+                           
                             <div id="attachments" class="tab-pane fade">
                                 <div class="row vertical-align-baseline">
                                     <div style="float:left;">
@@ -819,6 +949,7 @@
                                 </div>
                                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
                             </div>
+
                             <div id="logs" class="tab-pane fade">
                                 <div class="row vertical-align-baseline">
                                     <div style="float:left;">
@@ -830,6 +961,7 @@
                                 </div>
                                 <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                             </div>
+
                             <div id="comments" class="tab-pane fade">
                                 <div class="row vertical-align-baseline">
                                     <div style="float:left;">
