@@ -63,11 +63,11 @@
 
 
             if ($('#collapsed li').size() == 0 && $('#lastTab').is(":visible")) {
-                $('#lastTab').hide()
+                $('#lastTab').hide();
                 autocollapse();
             }
             else if ($('#collapsed li').size() != 0 && !$('#lastTab').is(":visible")) {
-                $('#lastTab').show()
+                $('#lastTab').show();
                 autocollapse();
             }
 
@@ -99,12 +99,12 @@
             //$('table').height($(window).height() - $('#footer').height() - $('#tabs').height() - $('#pageHeader').height() - $('#rfqTopRow').height());
 
             if ($(window).width() <= 799) {
-                $('table').stacktable();
+                $('.table-fixed').stacktable();
                 small = true;
             }
             if ($(window).width() <= 976) {
-                $('#pillList').removeClass('nav-stacked')
-                $('#pillListItemPage').removeClass('nav-stacked')
+                $('#pillList').removeClass('nav-stacked');
+                $('#pillListItemPage').removeClass('nav-stacked');
                 smallPills = true;
             }
 
@@ -115,21 +115,20 @@
                 autocollapse();
 
                 if ($(window).width() <= 799 && !small) {
-                    $('table').stacktable();
-                    $("table.stacktable.small-only").addClass("table-bordered");
-                    $("table.stacktable.small-only").addClass("table-hover");
+                    $('.table-fixed').stacktable();
+                            
                     small = true;
 
                 }
                 else if ($(window).width() >= 800 && small) {
-                    $("table.stacktable.small-only").remove()
+                    $(".table-fixed.stacktable.small-only").remove();
                     small = false;
 
                 }
 
                 if ($(window).width() <= 976 && !smallPills) {
-                    $('#pillList').removeClass('nav-stacked')
-                    $('#pillListItemPage').removeClass('nav-stacked')
+                    $('#pillList').removeClass('nav-stacked');
+                    $('#pillListItemPage').removeClass('nav-stacked');
                     smallPills = true;
                 }
                 else if(($(window).width() >= 977 && smallPills))
@@ -150,9 +149,9 @@
             });
 
             $(window).scroll(function () {
-                if (($(window).scrollTop() + $(window).height() == $(document).height()) && small == true) {
+                if (($(window).scrollTop() + $(window).height() == $(document).height()))
                     $('#footer').hide();
-                }
+
                 else
                 {
                     if (!$('#footer').is(":visible"))
@@ -177,7 +176,7 @@
                     $('#itemPage').hide();
 
                     $('#pillList li.active').removeClass("active");
-                    $("#pillList li").first().addClass("active")
+                    $("#pillList li").first().addClass("active");
                 }
             });
 
@@ -214,7 +213,6 @@
             });
 
 
-
             $(document).keypress(function (e) {              
                 if (e.which == 98) {
                     window.history.back();
@@ -228,6 +226,11 @@
 
 
             $('[data-toggle="popover"]').on('click', function (e) {
+                $("#rfqHome").hide();
+                $('#itemPage').show();
+            });
+
+            $('#rfqItem').click(function() {
                 $("#rfqHome").hide();
                 $('#itemPage').show();
             });
@@ -262,10 +265,10 @@
                 $('#itemInfo').slideDown();
             });
 
-            $('#toggleItemList').click(function(){
+            $('#toggleItemList').click(function() {
                 $('#itemList').slideDown();
                 $('#itemInfo').slideUp();
-            })
+            });
         });
 
     </script>
@@ -357,31 +360,6 @@
 
                 <div id="RFQ" class ="tab-pane fade">
 
-    <%--                <div class="container-fluid">
-                        <div class="row" id="rfqTopRow">
-                            <div class="col-md-2">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Divison" />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-secondary" type="button">
-                                            Set
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-3 ">
-                                <input type="search" class="form-control" placeholder="Search" />
-                            </div>
-                            <div class="col-md-3">
-                              <ul class="nav nav-pills">
-                                <li class="active"><a data-toggle="pill" href="#all">All</a></li>
-                                <li><a data-toggle="pill" href="#onlyMy">Only my</a></li>
-                                <li><a class="btn btn-default" href="#"><span class="glyphicon glyphicon-search">Search</span></a></li>
-                                <li><a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a></li>
-                              </ul>
-                            </div>
-                        </div>
-                    </div>--%>
                     <div id="rfqHome">
                         <div class="col-md-2">          
                             <ul class="nav nav-pills nav-stacked" role="tablist" id="pillList">
@@ -430,7 +408,7 @@
                                       </thead>
                                       <tbody>
                                         <tr>
-                                            <td class="col-xs-2"><a href="#16-SoIn-4177" title="Header" data-toggle="popover" data-trigger="hover" data-content="Some content">16-SoIn-4177</a></td>
+                                            <td class="col-xs-2"><a href="#16-SoIn-4177" id="rfqItem" title="Header" data-toggle="popover" data-trigger="hover" data-content="Some content">16-SoIn-4177</a></td>
                                             <td class="col-xs-2">test</td>
                                             <td class="col-xs-2">-</td>
                                             <td class="col-xs-2">2016-03-12</td>
@@ -798,7 +776,7 @@
                                     </div>
 
                                     <div class="row formBackground">
-                                        <div class="form-group col-xs-3 col-md-3">
+                                        <div class="form-group col-xs-4 col-md-4">
                                             <label for="owner">Owner</label>
                                             <input type="text" class="form-control" id="owner" placeholder="Internal, Sogeti" readonly="readonly" />
                                         </div>
@@ -887,7 +865,7 @@
                                     </div>
                                 </div>
                               
-                                <div class="container col-mg-12" id="itemInfo" style="display: none;">
+                                <div class="container col-md-12" id="itemInfo" style="display: none;">
                                     <div class="row vertical-align-baseline">                                   
                                         <div class="itemInfo" style="float:left;">
                                             <h3>Wheel</h3>        
@@ -895,6 +873,162 @@
                                         <button type="button" class="btn btn-danger" style="margin-left:50px" >Reject Item</button>
                                         <button type="button" class="btn btn-primary" id="toggleItemList" style=" margin-left:50px" >Show list again</button>                                        
                                     </div>
+                                    
+                                    <form>
+                                        <div class="row">
+                                            <div class="form-group col-md-6" style="margin-top: 10px;">
+                                                <label for="acItemNo">AC-Item No</label>
+                                                <input type="text" class="form-control" id="acItemNo" placeholder="1" readonly="readonly" />
+                                            </div>
+                                            <div class="form-group col-md-6" style="margin-top: 10px;">
+                                                <label for="annualVolume">Annual volume</label>
+                                                <input type="text" class="form-control" id="annualVolume" placeholder="1" readonly="readonly" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="description">Description</label>
+                                                <textarea class="form-control" rows="3" id="description" readonly="readonly"></textarea>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="itemComment">Comment</label>
+                                                <textarea class="form-control" rows="3" id="itemComment" readonly="readonly"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom:groove;">
+                                                <b style="float:left; margin-top: 10px;">Currency</b>
+                                                <div class="dropdown" id="currency" style="float:right; margin-bottom: 5px;">
+                                                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> 
+                                                    Please select a currency
+                                                    <span class="caret pull-right"></span>
+                                                  </button>
+
+                                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                    <li><a class="selectable">SEK</a></li>
+                                                    <li><a class="selectable">CAD</a></li>
+                                                    <li><a class="selectable">CNY</a></li>
+                                                  </ul>
+                                                </div>
+                                            </div>
+                                         </div>
+
+                                        <div class="row" style="margin-top: 10px;">    
+                                            <div class="form-inline col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom: groove; ">
+                                                <label style=" margin-top: 10px;">Serial price</label>                                 
+                                                <button type="button" class="btn btn-primary" style="float:right; margin-bottom: 5px;">Set Price Breaks</button>  
+                                                <input type="text" class="form-control " id="serialPriceInput" placeholder="1.00" style="float:right; margin-bottom: 5px;"/>  
+                                                <b style="float:right; margin-top: 10px;">Qty 1</b>       
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="form-inline col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom: groove; ">
+                                                <b style="float: left; margin-top: 10px;" >Min Order Quantity</b>
+                                                <input type="text" class="form-control" id="minOrderQuantity" placeholder="2" style="float: right; margin-bottom: 5px;" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom: groove; ">
+                                                <b style="float:left; margin-top: 10px;" >Country of Origin</b>
+                                                <div class="dropdown" id="countryOfOrigin" style="float:right; margin-bottom: 5px;">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+                                                    Please select a country
+                                                    <span class="caret pull-right"></span>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
+                                                    <li><a class="selectable">DENMARK</a></li>
+                                                    <li><a class="selectable">NORWAY</a></li>
+                                                    <li><a class="selectable">SWEDEN</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                          </div>
+                                                                                
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom: groove;">
+                                                <b style="float:left; margin-top: 10px;" >Unit</b>
+                                                <div class="dropdown" id="unit" style="float:right; margin-bottom: 5px;">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    Please select an option
+                                                    <span class="caret pull-right"></span>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
+                                                        <li><a class="selectable">PCE</a></li>
+                                                        <li><a class="selectable">FOOT</a></li>
+                                                        <li><a class="selectable">GALLON</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="form-inline col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom: groove; ">
+                                                <b style="float: left; margin-top: 10px;" >Weight (kg)</b>
+                                                <input type="text" class="form-control" id="weight" placeholder="2" style="float: right; margin-bottom: 5px;" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="form-inline col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom: groove; ">
+                                                <b style="float: left; margin-top: 10px;" >Lead Time First Delivery (Business days)</b>
+                                                <input type="text" class="form-control" id="leadTimeFirstDelivery" placeholder="2" style="float: right; margin-bottom: 5px;" />
+                                            </div>
+                                        </div>  
+
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="form-inline col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom: groove; ">
+                                                <b style="float: left; margin-top: 10px;" >Lead Time Production (Business days)</b>
+                                                <input type="text" class="form-control" id="leadTimeProduction" placeholder="2" style="float: right; margin-bottom: 5px;" />
+                                            </div>
+                                        </div>  
+                                        
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom: groove;">
+                                                <b style="float:left; margin-top: 10px;" >Review of technical specification (RTS)</b>
+                                                <div class="dropdown" id="RTS" style="float:right; margin-bottom: 5px;">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    Please select an option
+                                                    <span class="caret pull-right"></span>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
+                                                        <li><a class="selectable">1. OK</a></li>
+                                                        <li><a class="selectable">2. Not possible to manufacture(RTS needed)</a></li>
+                                                        <li><a class="selectable">3. Quality Improvement(RTS needed)</a></li>
+                                                        <li><a class="selectable">3. Cost reduction(RTS needed)</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row" style="margin-top: 10px;">    
+                                            <div class="form-inline col-md-offset-2 col-md-8 col-md-offset-2" style="border-bottom: groove; ">
+                                                <div>
+                                                    <b style=" margin-top: 10px;">RTS document</b>  
+                                                    <small style="color: grey;">RTS document can be downloaded from Attachment \ General</small>
+                                                </div>    
+                                                <button type="button" class="btn btn-danger" style="float:right; margin-bottom: 5px;">Delete</button>                              
+                                                <button type="button" class="btn btn-primary" style="float:right; margin-bottom: 5px;">Download RTS-document</button>                                                
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="form-inline col-md-offset-2 col-md-8 col-md-offset-2">
+                                                <button type="button" class="btn btn-primary" style="float:left; margin-bottom: 5px; margin-left: 5px;">Send</button>  
+                                                <button type="button" class="btn btn-success" style="float:left; margin-bottom: 5px; margin-left: 5px;">Save</button>  
+                                                <button type="button" class="btn btn-secondary" style="float:left; margin-bottom: 5px;">Close</button>  
+                                            </div>
+                                        </div>  
+
+                                    </form>
+
                                 </div>
                                             
                                 <div id="itemList">                                          
