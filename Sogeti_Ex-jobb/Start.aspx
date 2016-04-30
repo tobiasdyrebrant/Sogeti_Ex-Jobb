@@ -1017,8 +1017,7 @@
                                                 <button type="button" class="btn btn-primary" style="float:right; margin-bottom: 5px;">Download RTS-document</button>                                                
                                             </div>
                                         </div>
-                                        
-                                        
+                                                                              
                                         <div class="row" style="margin-top: 10px;">
                                             <div class="form-inline col-md-offset-2 col-md-8 col-md-offset-2">
                                                 <button type="button" class="btn btn-primary" style="float:left; margin-bottom: 5px; margin-left: 5px;">Send</button>  
@@ -1065,7 +1064,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="container col-md-10" style="color:white; background-color: #4CAF50; opacity:0.7">
+                                    <div class="container col-md-10" style="color:white; background-color: #4CAF50; opacity: 0.7; filter: alpha(opacity=40)">
                                         All items are answered and ready to be sent
                                     </div>
 
@@ -1081,7 +1080,83 @@
                                         <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>     
                                     </div>
                                 </div>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                                
+                                
+                                <div class="row" style="border-bottom: groove; "> 
+                                    <div class="form-inline col-md-11">
+                                        <ul class="nav nav-pills" role="tablist">
+                                            <li class="active"><a data-toggle="pill" href="#general" ><span class="label label-pill label-danger" style="border-radius: 1em;">1</span><i style="color:black;">General</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
+                                            <li><a data-toggle="pill" href="#oneone"><span class="label label-pill label-danger" style="border-radius: 1em;">2</span><i style="color:black;">1 1</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
+                                            <li><a data-toggle="pill" href="#twotwo"><span class="label label-pill label-danger" style="border-radius: 1em;">2</span><i style="color:black;">2 2</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
+                                            <li><a data-toggle="pill" href="#threethree"><span class="label label-pill label-danger" style="border-radius: 1em;">1</span><i style="color:black;">3 3</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>  
+                                            <li style="float:right;"><button type="button" class="btn btn-primary" >Dowload All</button></li>                                       
+                                        </ul>                                     
+                                    </div>     
+                                </div>  
+                                
+                                <div class="tab-content col-md-10" >
+                                    <div id="general" class="tab-pane fade in active">
+                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button> 
+                                        <div class="row" style="margin-top: 5px;">
+                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
+                                                <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">REVIEW OF TECHNICAL SPECIFICATION_8.xls (118kb)</a>
+                                                <i>Atlas Copco</i>
+                                                <button type="button" class="btn btn-danger" style="float:right;">Delete</button>    
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="oneone" class="tab-pane fade">
+                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button>                                      
+                                        <div class="row" style="margin-top: 5px;">
+                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
+                                                <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">Octopus.rdp (61b)</a>
+                                                <i>5452 * Svensk leverantör</i>
+                                                <button type="button" class="btn btn-danger" style="float:right;">Delete</button>    
+                                            </div>  
+                                        </div>
+
+                                        <div class="row" >
+                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
+                                                <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">launch (3).ica (2kb)</a>
+                                                <i>5452 * Svensk leverantör</i>
+                                                <button type="button" class="btn btn-danger" style="float:right;">Delete</button>    
+                                            </div>  
+                                        </div>                                       
+                                    </div>
+                                    
+                                    <div id="twotwo" class="tab-pane fade">
+                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button>                                      
+                                        <div class="row" style="margin-top: 5px;">
+                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
+                                                <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">Octopus.rdp (61b)</a>
+                                                <i>5452 * Svensk leverantör</i>
+                                                <button type="button" class="btn btn-danger" style="float:right;">Delete</button>    
+                                            </div>  
+                                        </div>
+
+                                        <div class="row" style="margin-top: 5px;">
+                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
+                                                <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">Octopus (1).rdp (61b)</a>
+                                                <i>5452 * Svensk leverantör</i>
+                                                <button type="button" class="btn btn-danger" style="float:right;">Delete</button>    
+                                            </div>  
+                                        </div>                                       
+                                    </div>
+                                    
+                                    <div id="threethree" class="tab-pane fade">
+                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button>                                      
+                                        <div class="row" style="margin-top: 5px;">
+                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;"">
+                                                <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">Octopus.rdp (61b)</a>
+                                                <i>5452 * Svensk leverantör</i>
+                                                <button type="button" class="btn btn-danger" style="float:right;">Delete</button>    
+                                            </div>  
+                                        </div>                                    
+                                    </div>
+                                    
+
+                                </div>
                             </div>
 
                             <div id="logs" class="tab-pane fade">
