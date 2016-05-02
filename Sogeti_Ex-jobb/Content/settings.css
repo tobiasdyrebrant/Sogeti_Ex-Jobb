@@ -130,9 +130,14 @@
     border-bottom:groove;
 }
 
-
-
-.kek {
- 
+.internalComment {
+    border: solid;
+    border-color: #4caf50;
 }
+
+.externalComment {
+    border: solid;
+    border-color: #0a8bb7;
+}
+
 

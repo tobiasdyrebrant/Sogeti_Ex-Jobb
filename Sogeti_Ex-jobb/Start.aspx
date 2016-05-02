@@ -16,6 +16,7 @@
     <!-- Scripts for the responsive table -->
     <%--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>--%>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/stacktable.js"></script>
+    
 
     <!-- Bootstrap Core CSS -->
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
@@ -28,6 +29,8 @@
 
     <!-- Font-awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
+    
+    
 
 
     <script>
@@ -95,8 +98,7 @@
             var smallPills = false;
 
             autocollapse(); // when document first loads
-            $('tbody').css("height", $(window).height() - $('#footer').height() - $('#tabs').height() - $('#pageHeader').height() - $('#rfqTopRow').height() - $('th').height() - 50)
-            //$('table').height($(window).height() - $('#footer').height() - $('#tabs').height() - $('#pageHeader').height() - $('#rfqTopRow').height());
+            $('tbody').css("height", $(window).height() - $('#footer').height() - $('#tabs').height() - $('#pageHeader').height() - $('#rfqTopRow').height() - $('th').height() - 50);
 
             if ($(window).width() <= 799) {
                 $('.table-fixed').stacktable();
@@ -108,7 +110,6 @@
                 smallPills = true;
             }
 
-            //$(window).on('resize', autocollapse); // when window is resized
 
             $(window).on('resize', function (e) { // when window is resized
                 //console.log($(window).width());
@@ -240,14 +241,14 @@
                 return false;
             });
 
-            $('#backButton').click(function () {
+            $('#backButton').click(function() {
                 window.history.back();
                 setTimeout(
-                  function () {
-                      window.location.reload();
-                  },
-                1);
-            })
+                    function() {
+                        window.location.reload();
+                    },
+                    1);
+            });
 
             $(".dropdown-menu li a.selectable").click(function () {
                 $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
@@ -269,6 +270,21 @@
                 $('#itemList').slideDown();
                 $('#itemInfo').slideUp();
             });
+
+            $('[data-toggle="pill"]').on('click', function (e) {
+                if ($(this).attr('id') == "commentsPill") {
+                    setTimeout(function() {
+                        $('textarea').each(function() {
+                            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                        }).on('input', function() {
+                            this.style.height = 'auto';
+                            this.style.height = (this.scrollHeight) + 'px';
+                        });
+                    }, 300);
+
+                }
+            });
+
         });
 
     </script>
@@ -704,7 +720,7 @@
                                 <li><a data-toggle="pill" href="#items">Items<span class="fa fa-tasks pull-right"></span></a></li>
                                 <li><a data-toggle="pill" href="#attachments">Attachments<span class="fa fa-paperclip pull-right"></span></a></li>
                                 <li><a data-toggle="pill" href="#logs">Logs<span class="fa fa-book pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#comments">Comments<span class="fa fa-comments pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>                                               
+                                <li><a data-toggle="pill" href="#comments" id="commentsPill">Comments<span class="fa fa-comments pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>                                               
                             </ul>
                         </div>  
 
@@ -831,8 +847,8 @@
 
                                     <div class="row">
                                         <div class="form-group col-md-10">
-                                            <label for="comment">Comment: </label>
-                                            <textarea class="form-control" rows="3" id="comment"></textarea>
+                                            <label for="overviewComment">Comment: </label>
+                                            <textarea class="form-control" rows="3" id="overviewComment"></textarea>
                                         </div>
                                     </div>
 
@@ -1020,9 +1036,9 @@
                                                                               
                                         <div class="row" style="margin-top: 10px;">
                                             <div class="form-inline col-md-offset-2 col-md-8 col-md-offset-2">
-                                                <button type="button" class="btn btn-primary" style="float:left; margin-bottom: 5px; margin-left: 5px;">Send</button>  
+                                                <button type="button" class="btn btn-primary" style="float:left; margin-bottom: 5px; ">Send</button>  
                                                 <button type="button" class="btn btn-success" style="float:left; margin-bottom: 5px; margin-left: 5px;">Save</button>  
-                                                <button type="button" class="btn btn-secondary" style="float:left; margin-bottom: 5px;">Close</button>  
+                                                <button type="button" class="btn btn-secondary" style="float:left; margin-bottom: 5px; margin-left: 5px;">Close</button>  
                                             </div>
                                         </div>  
 
@@ -1085,10 +1101,10 @@
                                 <div class="row" style="border-bottom: groove; "> 
                                     <div class="form-inline col-md-11">
                                         <ul class="nav nav-pills" role="tablist">
-                                            <li class="active"><a data-toggle="pill" href="#general" ><span class="label label-pill label-danger" style="border-radius: 1em;">1</span><i style="color:black;">General</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
-                                            <li><a data-toggle="pill" href="#oneone"><span class="label label-pill label-danger" style="border-radius: 1em;">2</span><i style="color:black;">1 1</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
-                                            <li><a data-toggle="pill" href="#twotwo"><span class="label label-pill label-danger" style="border-radius: 1em;">2</span><i style="color:black;">2 2</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
-                                            <li><a data-toggle="pill" href="#threethree"><span class="label label-pill label-danger" style="border-radius: 1em;">1</span><i style="color:black;">3 3</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>  
+                                            <li class="active"><a data-toggle="pill" href="#general" ><span class="label label-pill label-danger" style="border-radius: 1em;">1</span><i style="color:black;"> General</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
+                                            <li><a data-toggle="pill" href="#oneone"><span class="label label-pill label-danger" style="border-radius: 1em;">2</span><i style="color:black;"> 1 1</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
+                                            <li><a data-toggle="pill" href="#twotwo"><span class="label label-pill label-danger" style="border-radius: 1em;">2</span><i style="color:black;"> 2 2</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
+                                            <li><a data-toggle="pill" href="#threethree"><span class="label label-pill label-danger" style="border-radius: 1em;">1</span><i style="color:black;"> 3 3</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>  
                                             <li style="float:right;"><button type="button" class="btn btn-primary" >Dowload All</button></li>                                       
                                         </ul>                                     
                                     </div>     
@@ -1168,7 +1184,176 @@
                                         <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>     
                                     </div>
                                 </div>
-                                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                
+                                <div class="row" style="border-bottom: groove; "> 
+                                    <div class="form-inline col-md-11">
+                                        <ul class="nav nav-pills" role="tablist">
+                                            <li class="active"><a data-toggle="pill" href="#rfqMainLog" style="color: black;">RFQ Main Log<span class="fa fa-book pull-right"></span></a></li>
+                                            <li><a data-toggle="pill" href="#oneoneLog" style="color: black;">1 - 1<span class="fa fa-comment pull-right"></span></a></li>
+                                            <li><a data-toggle="pill" href="#twotwoLog" style="color: black;">2 - 2<span class="fa fa-comment pull-right"></span></a></li>
+                                            <li><a data-toggle="pill" href="#threethreeLog" style="color: black;">3 - 3<span class="fa fa-comment pull-right"></span></a></li>                            
+                                        </ul>                                     
+                                    </div>     
+                                </div>  
+                                
+                                <div class="tab-content col-md-10" >
+                                    <div id="rfqMainLog" class="tab-pane fade in active">
+                                        <div class="container col-md-12" >
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="">
+                                                    <table class="table" style="outline: solid; outline-color: #0a8bb7;">
+                                                        <thead>
+                                                            <tr style="background-color: #0a8bb7; color: white;">
+                                                                <th class="col-xs-2">Date</th>
+                                                                <th class="col-xs-2">Action</th>
+                                                                <th class="col-xs-2">User</th>
+                                                                <th class="col-xs-6">Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-02-29 08:03</td>
+                                                                <td class="col-xs-2">RE-OPEN</td>
+                                                                <td class="col-xs-2">System</td>
+                                                                <td class="col-xs-6">Reopened for 5462 * Svensk leverantör</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-02-26 08:50</td>
+                                                                <td class="col-xs-2">INFO</td>
+                                                                <td class="col-xs-2">Sogeti External</td>
+                                                                <td class="col-xs-6">Recieved by Sogeti External</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-02-26 08:48</td>
+                                                                <td class="col-xs-2">SENT</td>
+                                                                <td class="col-xs-2">Sogeti Internal</td>
+                                                                <td class="col-xs-6">Sent to suppliers</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-02-26 08:46</td>
+                                                                <td class="col-xs-2">INFO</td>
+                                                                <td class="col-xs-2">Sogeti Internal</td>
+                                                                <td class="col-xs-6">RFQ created</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="oneoneLog" class="tab-pane fade">
+                                        <div class="container col-md-12" >
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="">
+                                                    <table class="table" style="outline: solid; outline-color: #0a8bb7;">
+                                                        <thead>
+                                                            <tr style="background-color: #0a8bb7; color: white;">
+                                                                <th class="col-xs-2">Date</th>
+                                                                <th class="col-xs-2">Action</th>
+                                                                <th class="col-xs-2">User</th>
+                                                                <th class="col-xs-6">Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-03-24 13:20</td>
+                                                                <td class="col-xs-2">UPLOAD</td>
+                                                                <td class="col-xs-2">Sogeti External</td>
+                                                                <td class="col-xs-6">launch (3).ica uploaded</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-03-11 14:33</td>
+                                                                <td class="col-xs-2">DELETE</td>
+                                                                <td class="col-xs-2">Sogeti External</td>
+                                                                <td class="col-xs-6">.DS_Store deleted</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-03-11 14:21</td>
+                                                                <td class="col-xs-2">UPLOAD</td>
+                                                                <td class="col-xs-2">Sogeti External</td>
+                                                                <td class="col-xs-6">.DS_Store uploaded</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-03-11 14:19</td>
+                                                                <td class="col-xs-2">DELETE</td>
+                                                                <td class="col-xs-2">Sogeti External</td>
+                                                                <td class="col-xs-6">.DS_Store deleted</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="twotwoLog" class="tab-pane fade">
+                                        <div class="container col-md-12" >
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="">
+                                                    <table class="table" style="outline: solid; outline-color: #0a8bb7;">
+                                                        <thead>
+                                                            <tr style="background-color: #0a8bb7; color: white;">
+                                                                <th class="col-xs-2">Date</th>
+                                                                <th class="col-xs-2">Action</th>
+                                                                <th class="col-xs-2">User</th>
+                                                                <th class="col-xs-6">Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-03-07 16:22</td>
+                                                                <td class="col-xs-2">UPLOAD</td>
+                                                                <td class="col-xs-2">Sogeti External</td>
+                                                                <td class="col-xs-6">Octopus (1).rdp uploaded</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-03-07 13:36</td>
+                                                                <td class="col-xs-2">UPLOAD</td>
+                                                                <td class="col-xs-2">Sogeti External</td>
+                                                                <td class="col-xs-6">Octopus (1).rdp uploaded</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-xs-2">2016-02-29 08:04</td>
+                                                                <td class="col-xs-2">REJECT</td>
+                                                                <td class="col-xs-2">Sogeti External</td>
+                                                                <td class="col-xs-6">Rejected by 5462 * Svensk leverantör</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="threethreeLog" class="tab-pane fade">
+                                        <div class="container col-md-12" >
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="">
+                                                    <table class="table" style="outline: solid; outline-color: #0a8bb7;">
+                                                        <thead>
+                                                            <tr style="background-color: #0a8bb7; color: white;">
+                                                                <th class="col-xs-2">Date</th>
+                                                                <th class="col-xs-2">Action</th>
+                                                                <th class="col-xs-2">User</th>
+                                                                <th class="col-xs-6">Comment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="col-mdxs2">2016-03-07 16:22</td>
+                                                                <td class="col-xs-2">UPLOAD</td>
+                                                                <td class="col-xs-2">Sogeti External</td>
+                                                                <td class="col-xs-6">Octopus (1).rdp uploaded</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div id="comments" class="tab-pane fade">
@@ -1180,10 +1365,58 @@
                                         <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>    
                                     </div>
                                 </div>
-                                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <textarea class="form-control" rows="3" placeholder="Write a comment"></textarea>
+                                        <button class="btn btn-primary" type="button" style="float: right; margin-top: 5px;">
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" >
+                                    <div class="form-group col-md-8" style ="float: left;">
+                                        <label for="comment1">2016-04-25 15:12, Sogeti External</label>
+                                        <textarea class="form-control externalComment" id="comment1">Hej Såg ni att jag skickade tillbaka ärende 449 https://atlas-scp.axosoft.com/viewitem?id=449&type=defects&force_use_number=true Mailet som skickas ut vid ny artikel i DN är fortfarande det gamla och inte enligt mall. Best regards, FREDRIK AHNELL Commodity and Business Application Manager Atlas Copco Rock Drills AB Underground Rock Excevation Address: Klerkgatan 21 70191, Örebro - Sweden Phone: Mobile: Skype: +46 19 676 5924 +46 72 524 5623 se46725425623 VAT Reg No: SE556077901801 E-mail: fredrik.ahnell@se.atlascopco.com Visit us at: Follow us at: http://www.atlascopco.com Facebook / Twitter / LinkedIn / YouTube Committed to sustainable productivity</textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" >
+                                    <div class="form-group col-md-8" style ="float: right;">
+                                        <label for="comment2">2016-04-18 14:34, Sogeti Internal</label>
+                                        <textarea class="form-control internalComment "  id="comment2" readonly="readonly">test</textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" >
+                                    <div class="form-group col-md-8" style ="float: left;">
+                                        <label for="comment3">2016-04-25 15:12, Sogeti External</label>
+                                        <textarea class="form-control externalComment"id="comment3" readonly="readonly">Hej Såg ni att jag skickade tillbaka ärende 449 https://atlas-scp.axosoft.com/viewitem?id=449&type=defects&force_use_number=true Mailet som skickas ut vid ny artikel i DN är fortfarande det gamla och inte enligt mall. Best regards, FREDRIK AHNELL Commodity and Business Application Manager Atlas Copco Rock Drills AB Underground Rock Excevation Address: Klerkgatan 21 70191, Örebro - Sweden Phone: Mobile: Skype: +46 19 676 5924 +46 72 524 5623 se46725425623 VAT Reg No: SE556077901801 E-mail: fredrik.ahnell@se.atlascopco.com Visit us at: Follow us at: http://www.atlascopco.com Facebook / Twitter / LinkedIn / YouTube Committed to sustainable productivity</textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" >
+                                    <div class="form-group col-md-8" style ="float: right;">
+                                        <label for="comment4">2016-04-18 14:34, Sogeti Internal</label>
+                                        <textarea class="form-control internalComment" id="comment4"readonly="readonly">asd
+                                            asd
+                                            asd
+                                            asd
+                                            asd
+                                            asd
+                                            asd
+                                            asd
+                                            asd
+                                            asd
+                                            asd
+                                        </textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
  
                 <div id="designNotifications" class ="tab-pane fade">

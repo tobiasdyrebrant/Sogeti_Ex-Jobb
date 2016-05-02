@@ -104,6 +104,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\autosize.js" />
+    <Content Include="scripts\autosize.min.js" />
     <Content Include="scripts\jquery-1.9.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -133,6 +135,7 @@
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\jquery-1.9.1.js" />
     <Content Include="scripts\jquery-1.9.1.min.js" />
+    <Content Include="scripts\jquery.textarea_autosize.js" />
     <Content Include="Start.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
