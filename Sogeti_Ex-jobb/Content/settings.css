@@ -101,7 +101,6 @@
     font-size: 14px;   
 }
 
-
 .vertical-align-baseline {
     display:flex;
     align-items:baseline;
@@ -140,4 +139,15 @@
     border-color: #0a8bb7;
 }
 
+.DNTable tbody tr.red td{
+    opacity: 0.7;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+    background-color: indianred; 
+    color: white;   
+}
 
+.DNTable tbody td:hover{
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+    cursor: pointer;
+}
