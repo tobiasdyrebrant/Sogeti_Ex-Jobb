@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head runat="server">
     <title>Supplier Collaboration Portal</title>
     <meta charset="utf-8" />
@@ -107,6 +108,8 @@
             if ($(window).width() <= 976) {
                 $('#pillListRfqHome').removeClass('nav-stacked');
                 $('#pillListItemPage').removeClass('nav-stacked');
+                $('#pillListDesignNotifications').removeClass('nav-stacked');
+                $('#pillListDNItemPage').removeClass('nav-stacked');
                 smallPills = true;
             }
 
@@ -130,12 +133,16 @@
                 if ($(window).width() <= 976 && !smallPills) {
                     $('#pillListRfqHome').removeClass('nav-stacked');
                     $('#pillListItemPage').removeClass('nav-stacked');
+                    $('#pillListDesignNotifications').removeClass('nav-stacked');
+                    $('#pillListDNItemPage').removeClass('nav-stacked');
                     smallPills = true;
                 }
-                else if(($(window).width() >= 977 && smallPills))
-                {
-                    $('#pillListRfqHome').addClass('nav-stacked')
-                    $('#pillListItemPage').addClass('nav-stacked')
+                else if(($(window).width() >= 977 && smallPills)) {
+                    $('#pillListRfqHome').addClass('nav-stacked');
+                    $('#pillListItemPage').addClass('nav-stacked');
+                    $('#pillListDesignNotifications').addClass('nav-stacked');
+                    $('#pillListDNItemPage').addClass('nav-stacked');
+                    
                     smallPills = false;
                 }
 
@@ -178,6 +185,15 @@
 
                     $('#pillListRfqHome li.active').removeClass("active");
                     $("#pillListRfqHome li").first().addClass("active");
+                }
+
+                if($(this).attr('id') == "designNotificationsToggle")
+                {
+                    $('#designNotificationsHome').show();
+                    $('#designNotificationsItem').hide();
+
+                    $('#pillListDesignNotifications li.active').removeClass("active");
+                    $("#pillListDesignNotifications li").first().addClass("active");
                 }
             });
 
@@ -229,6 +245,15 @@
             $('[data-toggle="popover"]').on('click', function (e) {
                 $("#rfqHome").hide();
                 $('#itemPage').show();
+
+                setTimeout(function () {
+                    $('textarea').each(function () {
+                        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                    }).on('input', function () {
+                        this.style.height = 'auto';
+                        this.style.height = (this.scrollHeight) + 'px';
+                    });
+                }, 300);
             });
 
             $('#rfqItem').click(function() {
@@ -262,17 +287,38 @@
             });
 
             $('.selectableRow').click(function () {
-                $('#itemList').slideUp();
-                $('#itemInfo').slideDown();
+                if ($(this).closest('tbody').attr('id') == "itemListBody") {
+                    $('#itemList').slideUp();
+                    $('#itemInfo').slideDown();
+                }
+                else if ($(this).closest('tbody').attr('id') == "partListBody") {
+                    $('#partList').slideUp();
+                    $('#partInfo').slideDown();
+
+                    setTimeout(function () {
+                        $('textarea').each(function () {
+                            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                        }).on('input', function () {
+                            this.style.height = 'auto';
+                            this.style.height = (this.scrollHeight) + 'px';
+                        });
+                    }, 300);
+                }
+                
             });
 
             $('#toggleItemList').click(function() {
                 $('#itemList').slideDown();
                 $('#itemInfo').slideUp();
-            });
+            }); 
+            
+            $('#togglePartsList').click(function () {
+                $('#partList').slideDown();
+                $('#partInfo').slideUp();
+            }); 
 
             $('[data-toggle="pill"]').on('click', function (e) {
-                if ($(this).attr('id') == "commentsPill") {
+                if (($(this).attr('id') == "commentsPill") || ($(this).attr('id') == "itemPill") || ($(this).attr('id') == "DNoverviewPill") || ($(this).attr('id') == "overviewPill") || ($(this).attr('id') == "DNdetailsPill") || ($(this).attr('id') == "DNcommentsPill")) {
                     setTimeout(function() {
                         $('textarea').each(function() {
                             this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
@@ -281,14 +327,30 @@
                             this.style.height = (this.scrollHeight) + 'px';
                         });
                     }, 300);
-
                 }
+                
             });
+
+            $('#DNTable').on('click', function() {
+                $('#designNotificationsHome').hide();
+                $('#designNotificationsItem').show();
+
+                setTimeout(function () {
+                    $('textarea').each(function () {
+                        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                    }).on('input', function () {
+                        this.style.height = 'auto';
+                        this.style.height = (this.scrollHeight) + 'px';
+                    });
+                }, 300);
+            });
+
 
         });
 
     </script>
 </head>
+
 <body>
     
 
@@ -354,7 +416,7 @@
             <ul class="nav nav-tabs" id="tabs">
                 <li><a data-toggle="tab" href="#home">Home</a></li>       
                 <li><a data-toggle="tab" href="#RFQ" id="rfqToggle">RFQ</a></li>
-                <li><a data-toggle="tab" href="#designNotifications">Design Notification</a></li>
+                <li><a data-toggle="tab" href="#designNotifications" id="designNotificationsToggle">Design Notification</a></li>
                 <li><a data-toggle="tab" href="#claims">Claims</a></li>
                 <li><a data-toggle="tab" href="#supplierAnalysis">Supplier Analysis</a></li>	  
                 <li><a data-toggle="tab" href="#search">Search</a></li>	
@@ -715,8 +777,8 @@
                         <div class="col-md-2">     
                             <h4>16-SoIn-4177</h4>
                             <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListItemPage">
-                                <li class="active"><a data-toggle="pill" href="#overview">Overview<span class="fa fa-eye pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#items">Items<span class="fa fa-tasks pull-right"></span></a></li>
+                                <li class="active"><a data-toggle="pill" href="#overview" id="overviewPill">Overview<span class="fa fa-eye pull-right"></span></a></li>
+                                <li><a data-toggle="pill" href="#items" id="itemPill">Items<span class="fa fa-tasks pull-right"></span></a></li>
                                 <li><a data-toggle="pill" href="#attachments">Attachments<span class="fa fa-paperclip pull-right"></span></a></li>
                                 <li><a data-toggle="pill" href="#logs">Logs<span class="fa fa-book pull-right"></span></a></li>
                                 <li><a data-toggle="pill" href="#comments" id="commentsPill">Comments<span class="fa fa-comments pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>                                               
@@ -732,7 +794,8 @@
                                     <div style="float:left; padding-left: 2em; font-size: 6px;">
                                         <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>      
                                     </div>
-                                </div>                              
+                                </div>       
+                                                       
                                 <form>
                                     <div class="row formBackground">
                                         <div class="form-group col-xs-2 col-md-2">
@@ -745,12 +808,12 @@
                                             <input type="text" class="form-control" id="dnNumber" placeholder="-" readonly="readonly" />
                                         </div>
 
-                                        <div class="form-group col-xs-2 col-md-2">
+                                        <div class="form-group col-xs-3 col-md-3">
                                             <label for="title">Title</label>
                                             <input type="text" class="form-control" id="title" placeholder="test" readonly="readonly" />
                                         </div>
 
-                                        <div class="form-group col-xs-2 col-md-2">
+                                        <div class="form-group col-xs-3 col-md-3">
                                             <label for="project">Project</label>
                                             <input type="text" class="form-control" id="project" placeholder="---" readonly="readonly" />
                                         </div>
@@ -762,12 +825,12 @@
                                     </div>
 
                                     <div class="row formBackground">
-                                        <div class="form-group col-xs-2 col-md-2">
+                                        <div class="form-group col-xs-3 col-md-3">
                                             <label for="createdBy">Created By</label>
                                             <input type="text" class="form-control" id="createdBy" placeholder="Sogeti Internal" readonly="readonly" />
                                         </div>
 
-                                        <div class="form-group col-xs-2 col-md-2">
+                                        <div class="form-group col-xs-3 col-md-3">
                                             <label for="replyDate">Reply Date</label>
                                             <input type="text" class="form-control" id="replyDate" placeholder="2016-03-15" readonly="readonly" />
                                         </div>
@@ -796,12 +859,12 @@
                                             <input type="text" class="form-control" id="owner" placeholder="Internal, Sogeti" readonly="readonly" />
                                         </div>
 
-                                        <div class="form-group col-xs-3 col-md-3">
+                                        <div class="form-group col-xs-4 col-md-4">
                                             <label for="email">E-mail</label>
                                             <input type="text" class="form-control" id="email" placeholder="example@sogeti.se" readonly="readonly" />
                                         </div>
 
-                                        <div class="form-group col-xs-3 col-md-3">
+                                        <div class="form-group col-xs-4 col-md-4">
                                             <label for="phoneNumber">Phone Number</label>
                                             <input type="text" class="form-control" id="phoneNumber" placeholder="07X-XXXXXXX" readonly="readonly" />
                                         </div>
@@ -845,9 +908,9 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="form-group col-md-10">
+                                        <div class="form-group col-md-12">
                                             <label for="overviewComment">Comment: </label>
-                                            <textarea class="form-control" rows="3" id="overviewComment"></textarea>
+                                            <textarea class="form-control" rows="3" id="overviewComment" readonly="readonly"></textarea>
                                         </div>
                                     </div>
 
@@ -868,6 +931,7 @@
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
 
                             <div id="items" class="tab-pane fade">
@@ -1057,7 +1121,7 @@
                                                             <th class="col-xs-2">Status</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="itemListBody">
                                                         <tr class="selectableRow" style="background-color:#4CAF50; color: white;">
                                                             <td class="col-xs-2">Wheel</td>
                                                             <td class="col-xs-2">1</td>
@@ -1082,7 +1146,6 @@
                                     <div class="container col-md-10" style="color:white; background-color: #4CAF50; opacity: 0.7; filter: alpha(opacity=40)">
                                         All items are answered and ready to be sent
                                     </div>
-
                                 </div>
                             </div>    
                            
@@ -1095,8 +1158,7 @@
                                         <h5 class="custom" style="background-color: orange">RFQ is waiting for supplier's answer <span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific RFQ (16-SoIn-4177) is waiting for YOUR actions, YOU need to REPLY to the RFQ which have been sent to you." class="info fa fa-info-circle"></span></h5>     
                                     </div>
                                 </div>
-                                
-                                
+                                                              
                                 <div class="row" style="border-bottom: groove; "> 
                                     <div class="form-inline col-md-11">
                                         <ul class="nav nav-pills" role="tablist">
@@ -1110,8 +1172,9 @@
                                 </div>  
                                 
                                 <div class="tab-content col-md-10" >
-                                    <div id="general" class="tab-pane fade in active">
+                                    <div id="general" class="tab-pane fade in active">                                    
                                         <button type="button" class="btn btn-primary" style="float:left;">Add files</button> 
+                                        <button type="button" class="btn btn-primary" style="float:left; margin-left: 5px;">Download files all below</button> 
                                         <div class="row" style="margin-top: 5px;">
                                             <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
                                                 <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">REVIEW OF TECHNICAL SPECIFICATION_8.xls (118kb)</a>
@@ -1122,7 +1185,8 @@
                                     </div>
                                     
                                     <div id="oneone" class="tab-pane fade">
-                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button>                                      
+                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button> 
+                                        <button type="button" class="btn btn-primary" style="float:left; margin-left: 5px;">Download files all below</button>                                       
                                         <div class="row" style="margin-top: 5px;">
                                             <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
                                                 <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">Octopus.rdp (61b)</a>
@@ -1141,7 +1205,8 @@
                                     </div>
                                     
                                     <div id="twotwo" class="tab-pane fade">
-                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button>                                      
+                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button> 
+                                        <button type="button" class="btn btn-primary" style="float:left; margin-left: 5px;">Download files all below</button>                                       
                                         <div class="row" style="margin-top: 5px;">
                                             <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
                                                 <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">Octopus.rdp (61b)</a>
@@ -1160,9 +1225,10 @@
                                     </div>
                                     
                                     <div id="threethree" class="tab-pane fade">
-                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button>                                      
+                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button> 
+                                        <button type="button" class="btn btn-primary" style="float:left; margin-left: 5px;">Download files all below</button>                                      
                                         <div class="row" style="margin-top: 5px;">
-                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;"">
+                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
                                                 <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">Octopus.rdp (61b)</a>
                                                 <i>5452 * Svensk leverantör</i>
                                                 <button type="button" class="btn btn-danger" style="float:right;">Delete</button>    
@@ -1188,6 +1254,7 @@
                                     <div class="form-inline col-md-11">
                                         <ul class="nav nav-pills" role="tablist">
                                             <li class="active"><a data-toggle="pill" href="#rfqMainLog" style="color: black;">RFQ Main Log<span class="fa fa-book pull-right"></span></a></li>
+                                            <li class="tabSeparator"><a style="color: black;">Item Log(s): </a></li>
                                             <li><a data-toggle="pill" href="#oneoneLog" style="color: black;">1 - 1<span class="fa fa-comment pull-right"></span></a></li>
                                             <li><a data-toggle="pill" href="#twotwoLog" style="color: black;">2 - 2<span class="fa fa-comment pull-right"></span></a></li>
                                             <li><a data-toggle="pill" href="#threethreeLog" style="color: black;">3 - 3<span class="fa fa-comment pull-right"></span></a></li>                            
@@ -1352,7 +1419,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div id="comments" class="tab-pane fade">
@@ -1420,7 +1486,7 @@
  
                 <div id="designNotifications" class ="tab-pane fade">
                 
-                    <div id="designNotificationsHome">
+                    <div id="designNotificationsHome">                      
                         <div class="col-md-2">          
                             <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListDesignNotifications">
                                 <li class="active"><a data-toggle="pill" href="#DesignNotifications#Unread">Unread<span class="fa fa-envelope pull-right"></span></a></li>
@@ -1453,7 +1519,7 @@
                         <div class="container col-md-10">
                             <div class="row">
                                 <div class="">
-                                    <table class="table table-fixed DNTable">
+                                    <table class="table table-fixed DNTable" id="DNTable">
                                       <thead>
                                         <tr>
                                             <th class="col-xs-3">DN-Number</th>
@@ -1646,7 +1712,571 @@
                             </div>
                         </div>
                     </div>
-                      
+                    
+                    <div id="designNotificationsItem">
+                        <div class="col-md-2">     
+                            <h4>mailtest1</h4>
+                            <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListDNItemPage">
+                                <li class="active"><a data-toggle="pill" href="#DNoverview" id="DNoverviewPill">Overview<span class="fa fa-eye pull-right"></span></a></li>
+                                <li><a data-toggle="pill" href="#DNdetails" id="DNdetailsPill">Details<span class="fa fa-tasks pull-right"></span></a></li>
+                                <li><a data-toggle="pill" href="#DNattachments">Attachments<span class="fa fa-paperclip pull-right"></span></a></li>
+                                <li><a data-toggle="pill" href="#DNlogs">Logs<span class="fa fa-book pull-right"></span></a></li>
+                                <li><a data-toggle="pill" href="#DNcomments" id="DNcommentsPill">Comments<span class="fa fa-comments pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>                                               
+                            </ul>
+                        </div>  
+                        
+                        <div class="tab-content col-md-10">
+                        
+                            <div id="DNoverview" class="tab-pane fade in active">
+                                <div class="row vertical-align-baseline">
+                                    <div style="float:left;">
+                                        <h3>Overview</h3>        
+                                    </div>
+                                    <div style="float:left; padding-left: 2em; font-size: 6px;">
+                                        <h5 class="custom" style="background-color: orange">Confirm that you have recieved the Design Notification by clicking the Recieve button<span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific Design Notification (mailtest1) is waiting for YOUR actions, YOU need to REPLY to the Design Notifications which have been sent to you. Do this by clicking on the recieve button at the bottom of this page" class="info fa fa-info-circle"></span></h5>      
+                                    </div>
+                                </div> 
+
+                                <form>
+                                    <div class="row formBackground">
+                                        <div class="form-group col-xs-4 col-md-4">
+                                            <label for="preperatorName">Preperator Name</label>
+                                            <input type="text" class="form-control" id="preperatorName" placeholder="Sogeti Internal" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-4 col-md-4">
+                                            <label for="DNemail">E-mail</label>
+                                            <input type="text" class="form-control" id="DNemail" placeholder="example@sogeti.se" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-4 col-md-4">
+                                            <label for="DNphoneNumber">Title</label>
+                                            <input type="text" class="form-control" id="DNphoneNumber" placeholder="07X-XXXXXXX" readonly="readonly" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row formBackground">
+                                        <div class="form-group col-xs-4 col-md-4">
+                                            <label for="class">Class</label>
+                                            <input type="text" class="form-control" id="class" placeholder="Class 1" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-4 col-md-4">
+                                            <label for="type">Type</label>
+                                            <input type="text" class="form-control" id="type" placeholder="Existing Article" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-4 col-md-4">
+                                            <label for="timeToRespond">Time to respond</label>
+                                            <input type="text" class="form-control" id="timeToRespond" placeholder="Sogeti External" readonly="readonly" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row formBackground">
+                                        <div class="form-group col-xs-4 col-md-4">
+                                            <label for="DNtitle">Title</label>
+                                            <input type="text" class="form-control" id="DNtitle" placeholder="test" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-4 col-md-4">
+                                            <label for="DNproject">Project</label>
+                                            <input type="text" class="form-control" id="DNproject" placeholder="test" readonly="readonly" />
+                                        </div>
+
+                                        <div class="form-group col-xs-4 col-md-4">
+                                            <label for="division">Division</label>
+                                            <input type="text" class="form-control" id="division" placeholder="07X-XXXXXXX" readonly="readonly" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row formBackground">
+                                        <div class="form-group col-md-6">
+                                            <label for="DNoverviewComment">Cause: </label>
+                                            <textarea class="form-control" rows="3" id="DNoverviewComment">test
+                                                test
+                                                test
+                                                test
+                                                test
+                                                test                                                                         
+                                            </textarea>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="DNcause">Comment: </label>
+                                            <textarea class="form-control" rows="3" id="DNcause"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-10">
+                                            <button class="btn btn-default" type="button">
+                                                Close
+                                            </button>
+                                            <button class="btn btn-warning" type="button">
+                                                Recieve
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>   
+                            </div>
+                        
+                            <div id="DNdetails" class="tab-pane fade">
+                                <div class="row vertical-align-baseline">
+                                    <div style="float:left;">
+                                        <h3>Parts</h3>        
+                                    </div>
+
+                                    <div style="float:left; padding-left: 2em; font-size: 6px;">
+                                        <h5 class="custom" style="background-color: orange">Confirm that you have recieved the Design Notification by clicking the Recieve button<span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific Design Notification (mailtest1) is waiting for YOUR actions, YOU need to REPLY to the Design Notifications which have been sent to you. Do this by clicking on the recieve button at the bottom of this page" class="info fa fa-info-circle"></span></h5>      
+                                    </div>
+                                </div> 
+                            
+                                <div id="partList">                                          
+                                    <div class="container col-md-11" >
+                                        <div class="row">
+                                            <div class="">
+                                                <table class="table" style="outline: solid; outline-color: #0a8bb7;">
+                                                    <thead>
+                                                        <tr style="background-color: #0a8bb7; color: white;">
+                                                            <th class="col-xs-2">Name</th>
+                                                            <th class="col-xs-2">Purchase Level</th>
+                                                            <th class="col-xs-1">Supplier Part No</th>
+                                                            <th class="col-xs-2">Replace Date</th>
+                                                            <th class="col-xs-2">Description</th>
+                                                            <th class="col-xs-2">Reply date</th>
+                                                            <th class="col-xs-1">State</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="partListBody">
+                                                        <tr class="selectableRow">
+                                                            <td class="col-xs-2">test</td>
+                                                            <td class="col-xs-2">321123321123</td>
+                                                            <td class="col-xs-1">21</td>
+                                                            <td class="col-xs-2">2016-07-12</td>
+                                                            <td class="col-xs-2">test that are being tested</td>
+                                                            <td class="col-xs-2">2016-07-01</td>
+                                                            <td class="col-xs-1">Unread</td>
+                                                        </tr>
+                                                        <tr class="selectableRow">
+                                                            <td class="col-xs-2">test</td>
+                                                            <td class="col-xs-2">321123321123</td>
+                                                            <td class="col-xs-1">21</td>
+                                                            <td class="col-xs-2">2016-07-12</td>
+                                                            <td class="col-xs-2">test that are being tested</td>
+                                                            <td class="col-xs-2">2016-07-01</td>
+                                                            <td class="col-xs-1">Unread</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table> 
+                                            </div>
+                                        </div>                                                          
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-12" style="float: left;">
+                                            <button class="btn btn-default" type="button">
+                                                Close
+                                            </button>
+                                            <button class="btn btn-warning" type="button">
+                                                Recieve
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div id="partInfo" class="container col-md-12" style="display:none;">
+                                    <div class="row vertical-align-baseline">                                   
+                                        <div style="float:left; border-bottom:groove;">
+                                            <h4>Part Data</h4>        
+                                        </div>
+                                        <button type="button" class="btn btn-primary" id="togglePartsList" style=" margin-left:50px">Show list again</button>                                        
+                                    </div>
+                                
+                                    <form class="formBackground">
+                                        <div class="row">
+                                            <div class="form-group col-md-4" style="margin-top: 10px;">
+                                                <label for="acPartNo">AC Part No</label>
+                                                <input type="text" class="form-control" id="acPartNo" value="321123321123"/>
+                                            </div>
+                                            <div class="form-group col-md-4" style="margin-top: 10px;">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" id="name" value="test" />
+                                            </div>
+                                            <div class="form-group col-md-4" style="margin-top: 10px;">
+                                                <label for="supplierPartNumber">Supplier part number</label>
+                                                <input type="text" class="form-control" id="supplierPartNumber" value="test"/>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="row ">
+                                            <div class="form-group col-md-12">
+                                                <label for="DNdescription">Description</label>
+                                                <textarea class="form-control" rows="3" id="DNdescription"> test </textarea>
+                                            </div>
+                                        </div>
+                                    </form>
+                                                              
+                                    <div class="row vertical-align-baseline">                                   
+                                        <div style="float:left; border-bottom:groove;">
+                                            <h4>Revision</h4>        
+                                        </div>                                                                      
+                                    </div>
+                                
+                                    <form class="formBackground">
+                                        <div class="row">
+                                            <div class="form-group col-md-4" style="margin-top: 10px;">
+                                                <label for="replacementForRevision">Replacement for revision</label>
+                                                <input type="text" class="form-control" id="replacementForRevision" value="1"/>
+                                            </div>
+
+                                            <div class="form-group col-md-4" style="margin-top: 10px;">
+                                                <label for="introducedOnOrder">Introduced on order</label><br />
+                                                <div class="btn-group">
+                                                    <div class="dropdown" id="introducedOnOrder" style="float:left;">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="min-width: 300px;" >
+                                                            Select option
+                                                            <span class="caret pull-right"></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" text-align:center; min-width: 300px;">
+                                                            <li><a class="selectable">Indwelling</a></li>
+                                                            <li><a class="selectable">Next</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+ 
+                                            <div class="form-group col-md-4" style="margin-top: 10px;">
+                                                <label for="status">Status</label><br />
+                                                <div class="btn-group">
+                                                    <div class="dropdown" id="status" style="float:left;">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="min-width: 300px;" >
+                                                            Select option
+                                                            <span class="caret pull-right"></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" text-align:center; min-width: 300px;">
+                                                            <li><a class="selectable">In Work</a></li>
+                                                            <li><a class="selectable">Prototype</a></li>
+                                                            <li><a class="selectable">Production</a></li>
+                                                            <li><a class="selectable">Sparepart Only</a></li>
+                                                            <li><a class="selectable">Obsolite</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                
+                                    <div class="row vertical-align-baseline">                                   
+                                        <div style="float:left; border-bottom:groove;">
+                                            <h4>Part Specific</h4>        
+                                        </div>                                                                      
+                                    </div>
+                                
+                                    <form class="formBackground">
+                                        <div class="row">
+                                            <div class="form-group col-md-3" style="margin-top: 10px;">
+                                                <label for="weightPartInfo">Replacement for revision</label>
+                                                <input type="text" class="form-control" id="weightPartInfo" value="1"/>
+                                            </div>
+                                        
+                                            <div class="form-group col-md-2" style="margin-top: 10px;">
+                                                <label for="unitPartInfo">Introduced on order</label><br />
+                                                <div class="btn-group">
+                                                    <div class="dropdown" id="unitPartInfo" style="float:left;">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                            Select option
+                                                            <span class="caret pull-right"></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" text-align:center;">
+                                                            <li><a class="selectable">PCE</a></li>
+                                                            <li><a class="selectable">Foot</a></li>
+                                                            <li><a class="selectable">Gallon</a></li>
+                                                            <li><a class="selectable">Inch</a></li>
+                                                            <li><a class="selectable">KG</a></li>
+                                                            <li><a class="selectable">Pound</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="form-group col-md-2" style="margin-top: 10px;">
+                                                <label for="dangerousGoods">Dangerous goods</label><br />
+                                                <div class="btn-group">
+                                                    <div class="dropdown" id="dangerousGoods" style="float:left;">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                            Select option
+                                                            <span class="caret pull-right"></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" text-align:center;">
+                                                            <li><a class="selectable">Yes</a></li>
+                                                            <li><a class="selectable">No</a></li>         
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="form-group col-md-2" style="margin-top: 10px;">
+                                                <label for="safetyDetail">Dangerous goods</label><br />
+                                                <div class="btn-group">
+                                                    <div class="dropdown" id="safetyDetail" style="float:left;">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+                                                            Select option
+                                                            <span class="caret pull-right"></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" text-align:center;">
+                                                            <li><a class="selectable">Yes</a></li>
+                                                            <li><a class="selectable">No</a></li>         
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="form-group col-md-3" style="margin-top: 10px;">
+                                                <label for="purchaseLevel">Replacement for revision</label>
+                                                <input type="text" class="form-control" id="purchaseLevel" value="1"/>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                
+                                    <form class="formBackground">
+                                        <div class="row">
+                                            <div class="form-group col-md-3" style="margin-top: 10px;">
+                                                <label for="contactPersonPartInfo">Contact Person</label><br />
+                                                <div class="btn-group">
+                                                    <div class="dropup" id="contactPersonPartInfo" style="float:left;">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="min-width: 300px;" >
+                                                            Select option
+                                                            <span class="caret pull-right"></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" text-align:center; min-width: 300px;">
+                                                            <li><a class="selectable">Name Namesson</a></li>
+                                                            <li><a class="selectable">Sogeti External</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </form>
+                                
+                                    <div class="row">
+                                        <div style="float: left; padding-bottom: 10px;">
+                                            <button class="btn btn-default" type="button">
+                                                Close
+                                            </button>
+                                            <button class="btn btn-warning" type="button">
+                                                Recieve
+                                            </button>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        
+                            <div id="DNattachments" class="tab-pane fade">
+                                <div class="row vertical-align-baseline">
+                                    <div style="float:left;">
+                                        <h3>Attachments</h3>        
+                                    </div>
+                                    <div style="float:left; padding-left: 2em; font-size: 6px;">
+                                        <h5 class="custom" style="background-color: orange">Confirm that you have recieved the Design Notification by clicking the Recieve button<span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific Design Notification (mailtest1) is waiting for YOUR actions, YOU need to REPLY to the Design Notifications which have been sent to you. Do this by clicking on the recieve button at the bottom of this page" class="info fa fa-info-circle"></span></h5>     
+                                    </div>
+                                </div>
+                                                              
+                                <div class="row" style="border-bottom: groove; "> 
+                                    <div class="form-inline col-md-11">
+                                        <ul class="nav nav-pills" role="tablist">
+                                            <li class="active"><a data-toggle="pill" href="#generalPartInfo" ><span class="label label-pill label-danger" style="border-radius: 1em;">0</span><i style="color:black;"> General</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
+                                            <li><a data-toggle="pill" href="#test"><span class="label label-pill label-danger" style="border-radius: 1em;">1</span><i style="color:black;"> test</i><span class="fa fa-paperclip pull-right" style="color:black;"></span></a></li>
+                                            <li style="float:right;"><button type="button" class="btn btn-primary">Download All</button></li>                                       
+                                        </ul>                                     
+                                    </div>     
+                                </div>  
+                                
+                                <div class="tab-content col-md-10" >
+                                    <div id="generalPartInfo" class="tab-pane fade in active">                                    
+                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button> 
+                                        <button type="button" class="btn btn-primary" style="float:left; margin-left: 5px;">Download files all below</button> 
+                                        <div class="row" style="margin-top: 5px;">
+                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
+                                                <i>No files</i>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="test" class="tab-pane fade">
+                                        <button type="button" class="btn btn-primary" style="float:left;">Add files</button> 
+                                        <button type="button" class="btn btn-primary" style="float:left; margin-left: 5px;">Download files all below</button>                                       
+                                        <div class="row" style="margin-top: 5px;">
+                                            <div class="form-inline col-md-11" style="margin-top: 10px; border-bottom: groove;">
+                                                <a href="#" class="fa fa-file-o" aria-hidden="true" style="margin-top: 10px;">Thumbs.db</a>
+                                                <button type="button" class="btn btn-danger" style="float:right;">Delete</button>    
+                                            </div>  
+                                        </div>                                
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div id="DNlogs" class="tab-pane fade">
+                                <div class="row vertical-align-baseline">
+                                        <div style="float:left;">
+                                            <h3>Logs</h3>        
+                                        </div>
+                                        <div style="float:left; padding-left: 2em; font-size: 6px;">
+                                        <h5 class="custom" style="background-color: orange">Confirm that you have recieved the Design Notification by clicking the Recieve button<span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific Design Notification (mailtest1) is waiting for YOUR actions, YOU need to REPLY to the Design Notifications which have been sent to you. Do this by clicking on the recieve button at the bottom of this page" class="info fa fa-info-circle"></span></h5>     
+                                    </div>
+                                    </div>
+                                
+                                    <div class="row" style="border-bottom: groove; "> 
+                                        <div class="form-inline col-md-11">
+                                            <ul class="nav nav-pills" role="tablist">
+                                                <li class="active"><a data-toggle="pill" href="#DNMainLog" style="color: black;">Log<span class="fa fa-book pull-right"></span></a></li>
+                                                <li class="tabSeparator"><a style="color: black;">Part Logs: </a></li>
+                                                <li><a data-toggle="pill" href="#testLog" style="color: black;">test<span class="fa fa-comment pull-right"></span></a></li>                          
+                                            </ul>                                     
+                                        </div>     
+                                    </div>  
+                                
+                                    <div class="tab-content col-md-10" >
+                                        <div id="DNMainLog" class="tab-pane fade in active">
+                                            <div class="container col-md-12" >
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="">
+                                                        <table class="table" style="outline: solid; outline-color: #0a8bb7;">
+                                                            <thead>
+                                                                <tr style="background-color: #0a8bb7; color: white;">
+                                                                    <th class="col-xs-2">Date</th>
+                                                                    <th class="col-xs-2">Action</th>
+                                                                    <th class="col-xs-2">User</th>
+                                                                    <th class="col-xs-6">Comment</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-xs-2">2016-04-08 13:32</td>
+                                                                    <td class="col-xs-2">SendToSupplier</td>
+                                                                    <td class="col-xs-2">Sogeti Internal</td>
+                                                                    <td class="col-xs-6">Design Notification sent to suppliers</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-xs-2">2016-04-08 13:32</td>
+                                                                    <td class="col-xs-2">DnUpdated</td>
+                                                                    <td class="col-xs-2">Sogeti Internal</td>
+                                                                    <td class="col-xs-6">Design Notification info is updated</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-xs-2">2016-04-08 13:25</td>
+                                                                    <td class="col-xs-2">Created</td>
+                                                                    <td class="col-xs-2">Sogeti Internal</td>
+                                                                    <td class="col-xs-6">Design Notification created</td>
+                                                                </tr>
+  
+                                                            </tbody>
+                                                        </table> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="testLog" class="tab-pane fade">
+                                            <div class="container col-md-12" >
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="">
+                                                        <table class="table" style="outline: solid; outline-color: #0a8bb7;">
+                                                            <thead>
+                                                                <tr style="background-color: #0a8bb7; color: white;">
+                                                                    <th class="col-xs-2">Date</th>
+                                                                    <th class="col-xs-2">User</th>
+                                                                    <th class="col-xs-6">Comment</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-xs-2">2016-04-12 08:01</td>
+                                                                    <td class="col-xs-2">Sogeti Internal</td>
+                                                                    <td class="col-xs-6">Mail sent to supplier regarding a receive overdue DN.</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-xs-2">2016-04-11 15:28</td>
+                                                                    <td class="col-xs-2">Sogeti Internal</td>
+                                                                    <td class="col-xs-6">Mail sent to supplier regarding a receive overdue DN.</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-xs-2">2016-04-08 13:32</td>
+                                                                    <td class="col-xs-2">Sogeti Internal</td>
+                                                                    <td class="col-xs-6">Part sent to supplier</td>
+                                                                </tr>
+  
+                                                            </tbody>
+                                                        </table> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                                                      
+                                    </div>
+                            </div>
+                        
+                            <div id="DNcomments" class="tab-pane fade">
+                                <div class="row vertical-align-baseline">
+                                    <div style="float:left;">
+                                        <h3>Comments</h3>        
+                                    </div>
+                                    <div style="float:left; padding-left: 2em; font-size: 6px;">
+                                        <h5 class="custom" style="background-color: orange">Confirm that you have recieved the Design Notification by clicking the Recieve button<span title="Info" data-toggle="popover" data-trigger="hover" data-content="This specific Design Notification (mailtest1) is waiting for YOUR actions, YOU need to REPLY to the Design Notifications which have been sent to you. Do this by clicking on the recieve button at the bottom of this page" class="info fa fa-info-circle"></span></h5>      
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <textarea class="form-control" placeholder="Write a comment"></textarea>
+                                        <button class="btn btn-primary" type="button" style="float: right; margin-top: 5px;">
+                                            Add Comment
+                                        </button>
+                                        <div class="dropdown" id="choosePart" style="margin-top: 5px; margin-right: 5px; float: right;">
+                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Choose part
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="text-align:center;">
+                                                <li><a>General comment</a></li>
+                                                <li><a>test</a></li>
+                                            </ul>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                                
+                                <div class="row" style="border-bottom: groove; "> 
+                                    <div class="form-inline col-md-11">
+                                        <ul class="nav nav-pills" role="tablist">
+                                            <li class="active"><a data-toggle="pill" href="#DNGeneralComments" style="color: black;">General Comments<span class="fa fa-book pull-right"></span></a></li>
+                                            <li class="tabSeparator"><a style="color: black;">Part Comments: </a></li>
+                                            <li><a data-toggle="pill" href="#testComment" style="color: black;">test<span class="fa fa-comment pull-right"></span></a></li>                          
+                                        </ul>                                     
+                                    </div>     
+                                </div>  
+                                
+                                <div class="tab-content col-md-10">
+                                    <div id="DNGeneralComments" class="tab-pane fade in active">
+                                        hej
+                                    </div>
+                                    
+                                    <div id="testComment" class="tab-pane fade">
+                                        hej
+                                    </div>
+                                </div>
+                                                                                       
+                            </div>
+
+                        </div>
+                    </div>     
+                                         
                 </div>
 
                 <div id="claims" class ="tab-pane fade">
@@ -1659,7 +2289,7 @@
             </div> 
         </div>
      </div>
-    
+
     <div class="container">
         <nav class="navbar navbar-default navbar-fixed-bottom text-center text-success" id="footer">
             <div class="navbar-inner">
