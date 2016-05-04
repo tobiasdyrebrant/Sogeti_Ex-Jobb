@@ -14,7 +14,6 @@
     text-align:center;
 }
 
-
 .nav.nav-pills.nav-stacked > li > a{
     height:70px;
     border-radius: 0 !important;
@@ -24,6 +23,7 @@
     
     width: 95%;
 	margin-left: 5%;
+    margin-top: 2%;
 	box-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
@@ -156,4 +156,9 @@
     pointer-events: none;
     cursor: default;
     border-left-style: groove;
+}
+
+.searchText {
+    text-align: center;
+    margin-top: 100px;
 }

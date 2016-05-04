@@ -105,12 +105,16 @@
                 $('.table-fixed').stacktable();
                 small = true;
             }
+
             if ($(window).width() <= 976) {
                 $('#pillListRfqHome').removeClass('nav-stacked');
                 $('#pillListItemPage').removeClass('nav-stacked');
                 $('#pillListDesignNotifications').removeClass('nav-stacked');
                 $('#pillListDNItemPage').removeClass('nav-stacked');
-                smallPills = true;
+                $('#pillListClaims').removeClass('nav-stacked');
+                $('#pillListSupplierAnalysis').removeClass('nav-stacked');
+                
+                smallPills = true; 
             }
 
 
@@ -135,6 +139,8 @@
                     $('#pillListItemPage').removeClass('nav-stacked');
                     $('#pillListDesignNotifications').removeClass('nav-stacked');
                     $('#pillListDNItemPage').removeClass('nav-stacked');
+                    $('#pillListClaims').removeClass('nav-stacked');
+                    $('#pillListSupplierAnalysis').removeClass('nav-stacked');
                     smallPills = true;
                 }
                 else if(($(window).width() >= 977 && smallPills)) {
@@ -142,7 +148,8 @@
                     $('#pillListItemPage').addClass('nav-stacked');
                     $('#pillListDesignNotifications').addClass('nav-stacked');
                     $('#pillListDNItemPage').addClass('nav-stacked');
-                    
+                    $('#pillListClaims').addClass('nav-stacked');
+                    $('#pillListSupplierAnalysis').addClass('nav-stacked');
                     smallPills = false;
                 }
 
@@ -152,8 +159,6 @@
                     //$('table').height($(window).height() - $('#footer').height() - $('#tabs').height() - $('#pageHeader').height() - $('#rfqTopRow').height());
                 }
 
-                 
-                
             });
 
             $(window).scroll(function () {
@@ -310,6 +315,15 @@
             $('#toggleItemList').click(function() {
                 $('#itemList').slideDown();
                 $('#itemInfo').slideUp();
+
+                setTimeout(function () {
+                    $('textarea').each(function () {
+                        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                    }).on('input', function () {
+                        this.style.height = 'auto';
+                        this.style.height = (this.scrollHeight) + 'px';
+                    });
+                }, 300);
             }); 
             
             $('#togglePartsList').click(function () {
@@ -318,7 +332,7 @@
             }); 
 
             $('[data-toggle="pill"]').on('click', function (e) {
-                if (($(this).attr('id') == "commentsPill") || ($(this).attr('id') == "itemPill") || ($(this).attr('id') == "DNoverviewPill") || ($(this).attr('id') == "overviewPill") || ($(this).attr('id') == "DNdetailsPill") || ($(this).attr('id') == "DNcommentsPill")) {
+                if (($(this).attr('id') == "commentsPill") || ($(this).attr('id') == "itemPill") || ($(this).attr('id') == "DNoverviewPill") || ($(this).attr('id') == "overviewPill") || ($(this).attr('id') == "DNdetailsPill") || ($(this).attr('id') == "DNcommentsPill") || ($(this).attr('id') == "testCommentPill") || ($(this).attr('id') == "generelCommentsPill")) {
                     setTimeout(function() {
                         $('textarea').each(function() {
                             this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
@@ -345,10 +359,16 @@
                 }, 300);
             });
 
+            $('#searchButton').on('click', function () {
+                $('#searching').slideUp();
+                $('#searched').slideDown();
+            });
+
 
         });
 
     </script>
+
 </head>
 
 <body>
@@ -419,7 +439,7 @@
                 <li><a data-toggle="tab" href="#designNotifications" id="designNotificationsToggle">Design Notification</a></li>
                 <li><a data-toggle="tab" href="#claims">Claims</a></li>
                 <li><a data-toggle="tab" href="#supplierAnalysis">Supplier Analysis</a></li>	  
-                <li><a data-toggle="tab" href="#search">Search</a></li>	
+                <li><a data-toggle="tab" href="#searchTab">Search</a></li>	
 
                 <li id="lastTab" >
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -446,7 +466,7 @@
                                 <li><a data-toggle="pill" href="#RFQ#waitingConfirmation">Waiting Confirmation<span class="fa fa-hourglass-half pull-right"></span></a></li>
                                 <li><a data-toggle="pill" href="#RFQ#closed">Closed<span class="fa fa-close pull-right"></span></a></li>
                                 <li><a data-toggle="pill" href="#RFQ#archived">Archived<span class="fa fa-archive pull-right"></span></a></li>      
-                                <li class="dropup"> <a href="#RFQ#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="caret pull-right"></span></a>
+                                <li class="dropup"> <a href="#RFQ#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="fa fa-search pull-right"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <div class="input-group">
@@ -1442,28 +1462,28 @@
                                 
                                 <div class="row" >
                                     <div class="form-group col-md-8" style ="float: left;">
-                                        <label for="comment1">2016-04-25 15:12, Sogeti External</label>
+                                        <label for="comment1" >2016-04-25 15:12, Sogeti External</label>
                                         <textarea class="form-control externalComment" id="comment1">Hej Såg ni att jag skickade tillbaka ärende 449 https://atlas-scp.axosoft.com/viewitem?id=449&type=defects&force_use_number=true Mailet som skickas ut vid ny artikel i DN är fortfarande det gamla och inte enligt mall. Best regards, FREDRIK AHNELL Commodity and Business Application Manager Atlas Copco Rock Drills AB Underground Rock Excevation Address: Klerkgatan 21 70191, Örebro - Sweden Phone: Mobile: Skype: +46 19 676 5924 +46 72 524 5623 se46725425623 VAT Reg No: SE556077901801 E-mail: fredrik.ahnell@se.atlascopco.com Visit us at: Follow us at: http://www.atlascopco.com Facebook / Twitter / LinkedIn / YouTube Committed to sustainable productivity</textarea>
                                     </div>
                                 </div>
                                 
                                 <div class="row" >
                                     <div class="form-group col-md-8" style ="float: right;">
-                                        <label for="comment2">2016-04-18 14:34, Sogeti Internal</label>
+                                        <label for="comment2" style ="float: right;">2016-04-23 14:34, Sogeti Internal</label>
                                         <textarea class="form-control internalComment "  id="comment2" readonly="readonly">test</textarea>
                                     </div>
                                 </div>
                                 
                                 <div class="row" >
                                     <div class="form-group col-md-8" style ="float: left;">
-                                        <label for="comment3">2016-04-25 15:12, Sogeti External</label>
+                                        <label for="comment3" >2016-04-20 15:12, Sogeti External</label>
                                         <textarea class="form-control externalComment"id="comment3" readonly="readonly">Hej Såg ni att jag skickade tillbaka ärende 449 https://atlas-scp.axosoft.com/viewitem?id=449&type=defects&force_use_number=true Mailet som skickas ut vid ny artikel i DN är fortfarande det gamla och inte enligt mall. Best regards, FREDRIK AHNELL Commodity and Business Application Manager Atlas Copco Rock Drills AB Underground Rock Excevation Address: Klerkgatan 21 70191, Örebro - Sweden Phone: Mobile: Skype: +46 19 676 5924 +46 72 524 5623 se46725425623 VAT Reg No: SE556077901801 E-mail: fredrik.ahnell@se.atlascopco.com Visit us at: Follow us at: http://www.atlascopco.com Facebook / Twitter / LinkedIn / YouTube Committed to sustainable productivity</textarea>
                                     </div>
                                 </div>
                                 
                                 <div class="row" >
                                     <div class="form-group col-md-8" style ="float: right;">
-                                        <label for="comment4">2016-04-18 14:34, Sogeti Internal</label>
+                                        <label for="comment4" style ="float: right;">2016-04-18 14:34, Sogeti Internal</label>
                                         <textarea class="form-control internalComment" id="comment4"readonly="readonly">asd
                                             asd
                                             asd
@@ -1493,7 +1513,7 @@
                                 <li><a data-toggle="pill" href="#DesignNotifications#WorkInProgress">Work in Progress<span class="fa fa-wrench pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
                                 <li><a data-toggle="pill" href="#DesignNotifications#Evaluation">Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
                                 <li><a data-toggle="pill" href="#DesignNotifications#Closed">Closed<span class="fa fa-close pull-right"></span></a></li>  
-                                <li class="dropup"> <a href="#DesignNotifications#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="caret pull-right"></span></a>
+                                <li class="dropup"> <a href="#DesignNotifications#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="fa fa-search pull-right"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <div class="input-group">
@@ -1792,12 +1812,13 @@
                                     <div class="row formBackground">
                                         <div class="form-group col-md-6">
                                             <label for="DNoverviewComment">Cause: </label>
-                                            <textarea class="form-control" rows="3" id="DNoverviewComment">test
-                                                test
-                                                test
-                                                test
-                                                test
-                                                test                                                                         
+                                            <textarea class="form-control" rows="3" id="DNoverviewComment">
+                                            test
+                                            test
+                                            test
+                                            test
+                                            test                                                                        
+                                            test
                                             </textarea>
                                         </div>
                                         <div class="form-group col-md-6">
@@ -1884,6 +1905,7 @@
                                 </div>
                             
                                 <div id="partInfo" class="container col-md-12" style="display:none;">
+                                    
                                     <div class="row vertical-align-baseline">                                   
                                         <div style="float:left; border-bottom:groove;">
                                             <h4>Part Data</h4>        
@@ -2255,20 +2277,94 @@
                                 <div class="row" style="border-bottom: groove; "> 
                                     <div class="form-inline col-md-11">
                                         <ul class="nav nav-pills" role="tablist">
-                                            <li class="active"><a data-toggle="pill" href="#DNGeneralComments" style="color: black;">General Comments<span class="fa fa-book pull-right"></span></a></li>
+                                            <li class="active"><a data-toggle="pill" href="#DNGeneralComments"  id="generelCommentsPill"style="color: black;">General Comments<span class="fa fa-book pull-right"></span></a></li>
                                             <li class="tabSeparator"><a style="color: black;">Part Comments: </a></li>
-                                            <li><a data-toggle="pill" href="#testComment" style="color: black;">test<span class="fa fa-comment pull-right"></span></a></li>                          
+                                            <li><a data-toggle="pill" href="#testComment" id="testCommentPill"style="color: black;">test<span class="fa fa-comment pull-right"></span></a></li>                          
                                         </ul>                                     
                                     </div>     
                                 </div>  
                                 
-                                <div class="tab-content col-md-10">
-                                    <div id="DNGeneralComments" class="tab-pane fade in active">
-                                        hej
+                                <div class="tab-content col-md-12">
+                                    <div id="DNGeneralComments" class="tab-pane fade in active">                                      
+                                        <div class="row" style="margin-top: 10px;" >
+                                            <div class="form-group col-md-8" style ="float: left;">
+                                                <label for="DNcomment1">2016-04-25 15:12, Sogeti External</label>
+                                                <textarea class="form-control externalComment" id="DNcomment1">Hej Såg ni att jag skickade tillbaka ärende 449 https://atlas-scp.axosoft.com/viewitem?id=449&type=defects&force_use_number=true Mailet som skickas ut vid ny artikel i DN är fortfarande det gamla och inte enligt mall. Best regards, FREDRIK AHNELL Commodity and Business Application Manager Atlas Copco Rock Drills AB Underground Rock Excevation Address: Klerkgatan 21 70191, Örebro - Sweden Phone: Mobile: Skype: +46 19 676 5924 +46 72 524 5623 se46725425623 VAT Reg No: SE556077901801 E-mail: fredrik.ahnell@se.atlascopco.com Visit us at: Follow us at: http://www.atlascopco.com Facebook / Twitter / LinkedIn / YouTube Committed to sustainable productivity</textarea>
+                                            </div>
+                                        </div>
+                                
+                                        <div class="row" >
+                                            <div class="form-group col-md-8" style ="float: right;">
+                                                <label for="DNcomment2" style ="float: right;">2016-04-13 14:34, Sogeti Internal</label>
+                                                <textarea class="form-control internalComment" id="DNcomment2" readonly="readonly">test</textarea>
+                                            </div>
+                                        </div>
+                                
+                                        <div class="row" >
+                                            <div class="form-group col-md-8" style ="float: left;">
+                                                <label for="DNcomment3">2016-04-20 15:12, Sogeti External</label>
+                                                <textarea class="form-control externalComment" id="DNcomment3" readonly="readonly">Hej Såg ni att jag skickade tillbaka ärende 449 https://atlas-scp.axosoft.com/viewitem?id=449&type=defects&force_use_number=true Mailet som skickas ut vid ny artikel i DN är fortfarande det gamla och inte enligt mall. Best regards, FREDRIK AHNELL Commodity and Business Application Manager Atlas Copco Rock Drills AB Underground Rock Excevation Address: Klerkgatan 21 70191, Örebro - Sweden Phone: Mobile: Skype: +46 19 676 5924 +46 72 524 5623 se46725425623 VAT Reg No: SE556077901801 E-mail: fredrik.ahnell@se.atlascopco.com Visit us at: Follow us at: http://www.atlascopco.com Facebook / Twitter / LinkedIn / YouTube Committed to sustainable productivity</textarea>
+                                            </div>
+                                        </div>
+                                
+                                        <div class="row" >
+                                            <div class="form-group col-md-8" style ="float: right;">
+                                                <label for="DNcomment4" style ="float: right;">2016-04-18 14:34, Sogeti Internal</label>
+                                                <textarea class="form-control internalComment" id="DNcomment4" readonly="readonly">asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                </textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     
                                     <div id="testComment" class="tab-pane fade">
-                                        hej
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="form-group col-md-8" style ="float: left;">
+                                                <label for="testcomment1">2016-04-25 15:12, Sogeti External</label>
+                                                <textarea class="form-control externalComment" id="testcomment1" >Hej Såg ni att jag skickade tillbaka ärende 449 https://atlas-scp.axosoft.com/viewitem?id=449&type=defects&force_use_number=true Mailet som skickas ut vid ny artikel i DN är fortfarande det gamla och inte enligt mall. Best regards, FREDRIK AHNELL Commodity and Business Application Manager Atlas Copco Rock Drills AB Underground Rock Excevation Address: Klerkgatan 21 70191, Örebro - Sweden Phone: Mobile: Skype: +46 19 676 5924 +46 72 524 5623 se46725425623 VAT Reg No: SE556077901801 E-mail: fredrik.ahnell@se.atlascopco.com Visit us at: Follow us at: http://www.atlascopco.com Facebook / Twitter / LinkedIn / YouTube Committed to sustainable productivity</textarea>
+                                            </div>
+                                        </div>
+                                
+                                        <div class="row" >
+                                            <div class="form-group col-md-8" style ="float: right;">
+                                                <label for="testcomment2" style ="float: right;">2016-04-23 14:34, Sogeti Internal</label>
+                                                <textarea class="form-control internalComment" id="testcomment2" readonly="readonly">test</textarea>
+                                            </div>
+                                        </div>
+                                
+                                        <div class="row" >
+                                            <div class="form-group col-md-8" style ="float: left;">
+                                                <label for="testcomment3">2016-04-20 15:12, Sogeti External</label>
+                                                <textarea class="form-control externalComment" id="testcomment3" readonly="readonly">Hej Såg ni att jag skickade tillbaka ärende 449 https://atlas-scp.axosoft.com/viewitem?id=449&type=defects&force_use_number=true Mailet som skickas ut vid ny artikel i DN är fortfarande det gamla och inte enligt mall. Best regards, FREDRIK AHNELL Commodity and Business Application Manager Atlas Copco Rock Drills AB Underground Rock Excevation Address: Klerkgatan 21 70191, Örebro - Sweden Phone: Mobile: Skype: +46 19 676 5924 +46 72 524 5623 se46725425623 VAT Reg No: SE556077901801 E-mail: fredrik.ahnell@se.atlascopco.com Visit us at: Follow us at: http://www.atlascopco.com Facebook / Twitter / LinkedIn / YouTube Committed to sustainable productivity</textarea>
+                                            </div>
+                                        </div>
+                                
+                                        <div class="row" >
+                                            <div class="form-group col-md-8" style ="float: right;">
+                                                <label for="testcomment4" style ="float: right;">2016-04-18 14:34, Sogeti Internal</label>
+                                                <textarea class="form-control internalComment" id="testcomment4" readonly="readonly">asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                    asd
+                                                </textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                                                                        
@@ -2280,11 +2376,761 @@
                 </div>
 
                 <div id="claims" class ="tab-pane fade">
-                    Claims
+                    <div class="col-md-2">          
+                        <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListClaims">
+                            <li class="active"><a data-toggle="pill" href="#new">New<span class="glyphicon glyphicon-grain pull-right"></span></a></li>
+                            <li><a data-toggle="pill" href="#rejected">Rejected<span class="fa fa-thumbs-o-down pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
+                            <li><a data-toggle="pill" href="#recieved">Recieved<span class="fa fa-download pull-right"></span></a></li>
+                            <li><a data-toggle="pill" href="#partiallyAnswered">Partially Answered<span class="fa fa-hourglass-half pull-right"></span></a></li>
+                            <li><a data-toggle="pill" href="#inReview">In Review<span class="fa fa-file-video-o pull-right"></span></a></li>
+                            <li><a data-toggle="pill" href="#closed">Closed<span class="fa fa-close pull-right"></span></a></li>  
+                            <li><a data-toggle="pill" href="#archived">Archived<span class="fa fa-archive pull-right"></span></a></li>         
+                            <li class="dropup"> <a href="#RFQ#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="fa fa-search pull-right"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Divison" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-secondary" type="button">
+                                                    Set
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input type="search" class="form-control" placeholder="Search" />
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
+                                    </li>
+                                </ul>
+                            </li>                                 
+                        </ul>
+                    </div>
                 </div>
 
-                <div id="supplierAnalysis" class ="tab-pane fade">
-                   Supplier Analysis
+                <div id="supplierAnalysis" class="tab-pane fade">
+                   <div class="col-md-2">          
+                       <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListSupplierAnalysis">
+                            <li class="active"><a data-toggle="pill" href="#meritPoint" style="height: 40px;">Merit Point</a></li>
+                            <li><a data-toggle="pill" href="#claimsPPM" style="height: 40px;">Claims/PPM</a></li>
+                            <li><a data-toggle="pill" href="#deliveryPrecision" style="height: 40px;">Delivery Precision</a></li>
+                            <li><a data-toggle="pill" href="#leadTime" style="height: 40px;">Lead Time</a></li>
+                            <li><a data-toggle="pill" href="#orderAcknowledgement" style="height: 40px;">Order Acknowledgement</a></li>
+                            <li><a data-toggle="pill" href="#purchaseVolume" style="height: 40px;">Purchase Volume</a></li>      
+                            <li><a data-toggle="pill" href="#forecast" style="height: 40px;">Forecast</a></li>                               
+                        </ul>
+                    </div>
+                    
+                   <div class="tab-content col-md-10">
+                        <div id="meritPoint" class="tab-pane fade in active">
+                            <div class="row vertical-align-baseline">
+                                <div style="float:left;">
+                                    <h3>Merit Point</h3>        
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="MPsupplier">Supplier</label>
+                                        <input type="text" class="form-control" id="MPsupplier" placeholder="5462" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="MPdivision">Division</label>
+                                        <input type="text" class="form-control" id="MPdivision" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="MPperiod">Period</label>
+                                        <input type="text" class="form-control" id="MPperiod" placeholder="2015-05; 2015-06" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="form-group col-md-10">
+                                    <button class="btn btn-default" type="button">
+                                        Show Report
+                                    </button>
+                                    <button class="btn btn-default" type="button">
+                                        Show Report in New Window
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div id="claimsPPM" class="tab-pane fade">
+                            <div class="row vertical-align-baseline">
+                                <div style="float:left;">
+                                    <h3>Claims/PPM</h3>        
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="CPPsupplier">Supplier</label>
+                                        <input type="text" class="form-control" id="CPPsupplier" placeholder="5462" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="CPPdivision">Division</label>
+                                        <input type="text" class="form-control" id="CPPdivision" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="CPPsupplyingWarehouse">Supplying Warehouse</label>
+                                        <input type="text" class="form-control" id="CPPsupplyingWarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="CPPwarehouse">Warehouse</label>
+                                        <input type="text" class="form-control" id="CPPwarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="CPPperiod">Period</label>
+                                        <input type="text" class="form-control" id="CPPperiod" placeholder="2015-05;2015-06;" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="CPPrejectionCode">Rejection Code</label>
+                                        <input type="text" class="form-control" id="CPPrejectionCode" placeholder="(Division Defaults)" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-12 col-md-12">
+                                    <label ><input type="checkbox" value=""/> Most Frequent Parts</label>
+                                </div>                             
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-10">
+                                    <button class="btn btn-default" type="button">
+                                        Show Report
+                                    </button>
+                                    <button class="btn btn-default" type="button">
+                                        Show Report in New Window
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="deliveryPrecision" class="tab-pane fade">
+                            <div class="row vertical-align-baseline">
+                                <div style="float:left;">
+                                    <h3>Delivery Precision</h3>        
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="DPsupplier">Supplier</label>
+                                        <input type="text" class="form-control" id="DPsupplier" placeholder="5462" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="DPdivision">Division</label>
+                                        <input type="text" class="form-control" id="DPdivision" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="DPsupplyingWarehouse">Supplying Warehouse</label>
+                                        <input type="text" class="form-control" id="DPsupplyingWarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="DPwarehouse">Warehouse</label>
+                                        <input type="text" class="form-control" id="DPwarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="DPperiod">Period</label>
+                                        <input type="text" class="form-control" id="DPperiod" placeholder="2015-05;2015-06;" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="DPorderType">Order Type</label>
+                                        <input type="text" class="form-control" id="DPorderType" placeholder="(Division Defaults)" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-12 col-md-12">
+                                    <label ><input type="checkbox" value=""/> Most Frequent Parts</label>
+                                </div>                             
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-10">
+                                    <button class="btn btn-default" type="button">
+                                        Show Report
+                                    </button>
+                                    <button class="btn btn-default" type="button">
+                                        Show Report in New Window
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="leadTime" class="tab-pane fade">
+                            <div class="row vertical-align-baseline">
+                                <div style="float:left;">
+                                    <h3>Lead Time</h3>        
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="LTsupplier">Supplier</label>
+                                        <input type="text" class="form-control" id="LTsupplier" placeholder="5462" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="LTdivision">Division</label>
+                                        <input type="text" class="form-control" id="LTdivision" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="LTsupplyingWarehouse">Supplying Warehouse</label>
+                                        <input type="text" class="form-control" id="LTsupplyingWarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="LTwarehouse">Warehouse</label>
+                                        <input type="text" class="form-control" id="LTwarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="LTperiod">Period</label>
+                                        <input type="text" class="form-control" id="LTperiod" placeholder="2015-05;2015-06;" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                         
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-12 col-md-12">
+                                    <label ><input type="checkbox" value=""/> Most Frequent Parts</label>
+                                </div>                             
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-10">
+                                    <button class="btn btn-default" type="button">
+                                        Show Report
+                                    </button>
+                                    <button class="btn btn-default" type="button">
+                                        Show Report in New Window
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="orderAcknowledgement" class="tab-pane fade">
+                            <div class="row vertical-align-baseline">
+                                <div style="float:left;">
+                                    <h3>Order Acknowledgement</h3>        
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="OAsupplier">Supplier</label>
+                                        <input type="text" class="form-control" id="OAsupplier" placeholder="5462" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="OAdivision">Division</label>
+                                        <input type="text" class="form-control" id="OAdivision" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="OAsupplyingWarehouse">Supplying Warehouse</label>
+                                        <input type="text" class="form-control" id="OAsupplyingWarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="OAwarehouse">Warehouse</label>
+                                        <input type="text" class="form-control" id="OAwarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="OAperiod">Period</label>
+                                        <input type="text" class="form-control" id="OAperiod" placeholder="2015-05;2015-06;" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="OAorderType">Order Type</label>
+                                        <input type="text" class="form-control" id="OAorderType" placeholder="(Division Defaults)" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-12 col-md-12">
+                                    <label ><input type="checkbox" value=""/> Most Frequent Parts</label>
+                                </div>                             
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-10">
+                                    <button class="btn btn-default" type="button">
+                                        Show Report
+                                    </button>
+                                    <button class="btn btn-default" type="button">
+                                        Show Report in New Window
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="purchaseVolume" class="tab-pane fade">
+                            <div class="row vertical-align-baseline">
+                                <div style="float:left;">
+                                    <h3>Purchase Volume</h3>        
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="PVsupplier">Supplier</label>
+                                        <input type="text" class="form-control" id="PVsupplier" placeholder="5462" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="PVdivision">Division</label>
+                                        <input type="text" class="form-control" id="PVdivision" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="PVsupplyingWarehouse">Supplying Warehouse</label>
+                                        <input type="text" class="form-control" id="PVsupplyingWarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="PVwarehouse">Warehouse</label>
+                                        <input type="text" class="form-control" id="PVwarehouse" placeholder="%" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <div class="input-group">
+                                        <label for="PVperiod">Period</label>
+                                        <input type="text" class="form-control" id="PVperiod" placeholder="2015-05;2015-06;" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="PVorderType">Order Type</label>
+                                        <input type="text" class="form-control" id="PVorderType" placeholder="(Division Defaults)" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <label for="PVcurrency">Introduced on order</label><br />
+                                    <div class="btn-group">
+                                        <div class="dropdown" id="PVcurrency" style="float:left;">
+                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Select currency
+                                                <span class="caret pull-right"></span>
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" text-align:center;">
+                                                <li><a class="selectable">EUR</a></li>
+                                                <li><a class="selectable">SEK</a></li>
+                                                <li><a class="selectable">CNY</a></li>
+                                                <li><a class="selectable">USD</a></li>
+                                                <li><a class="selectable">INR</a></li>
+                                                <li><a class="selectable">CAD</a></li>
+                                                <li><a class="selectable">ZAR</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-12 col-md-12">
+                                    <label ><input type="checkbox" value=""/> Most Frequent Parts</label>
+                                </div>                             
+                            </div>                                        
+
+                            <div class="row">
+                                <div class="form-group col-md-10">
+                                    <button class="btn btn-default" type="button">
+                                        Show Report
+                                    </button>
+                                    <button class="btn btn-default" type="button">
+                                        Show Report in New Window
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="forecast" class="tab-pane fade">
+                            <div class="row vertical-align-baseline">
+                                <div style="float:left;">
+                                    <h3>Forecast</h3>     
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">                                                           
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="FCdivision">Division</label>
+                                        <input type="text" class="form-control" id="FCdivision" placeholder="()" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-xs-4 col-md-4 ">
+                                    <div class="input-group">
+                                        <label for="FCdate">Date</label>
+                                        <input type="text" class="form-control" id="FCdate" placeholder="()" readonly="readonly"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="button" style="margin-top: 25px">
+                                                Set
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <label for="FCsupplier">Supplier</label><br />
+                                    <div class="btn-group">
+                                        <div class="dropdown" id="FCsupplier" style="float:left;">
+                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Select supplier
+                                                <span class="caret pull-right"></span>
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" text-align:center;">
+                                                <li><a class="selectable">5462 * Svensk Leverantör</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row formBackground">
+                                <div class="form-group col-xs-4 col-md-4">
+                                    <label for="FCtypeOfForecast">Type of forecast</label><br />
+                                    <div class="btn-group">
+                                        <div class="dropdown" id="FCtypeOfForecast" style="float:left;">
+                                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Select type
+                                                <span class="caret pull-right"></span>
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" text-align:center;">
+                                                <li><a class="selectable">Regular</a></li>
+                                                <li><a class="selectable">Detailed</a></li>
+                                                <li><a class="selectable">Monitor</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="form-group col-md-10">
+                                    <button class="btn btn-default" type="button">
+                                        Get Report(Excel)
+                                    </button>
+                                    <button class="btn btn-default" type="button">
+                                        Get Report(PDF)
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+                
+                <div id="searchTab" class="tab-pane fade">
+                    <div id="searching" class="searchText">
+                        <h3>Search by article number</h3>
+                        <h6>This search will return places where the searched article can be found</h6>
+                        <div class="input-group col-md-offset-3 col-md-6">
+                            <input type="search" class="form-control" placeholder="Article number" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" type="button" id="searchButton">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div> 
+                    
+                    <div id="searched" style="display:none">
+                        <div class="container-fluid">
+                            <div class="input-group col-md-offset-3 col-md-6">
+                                <input type="search" class="form-control" value="Wheel"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="button">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="container-fluid">
+                          <div class="row">
+                            Content
+                          </div>
+                        </div>
+                        
+                        <div class="container-fluid">
+                          <div class="row">
+                            Content
+                          </div>
+                        </div>
+                        
+                        <div class="container-fluid">
+                          <div class="row">
+                            Content
+                          </div>
+                        </div>
+                    </div>
+
                 </div>
             </div> 
         </div>
@@ -2304,4 +3150,5 @@
 
     
 </body>
+
 </html>
