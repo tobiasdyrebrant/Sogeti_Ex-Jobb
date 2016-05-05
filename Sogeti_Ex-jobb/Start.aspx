@@ -295,6 +295,15 @@
                 if ($(this).closest('tbody').attr('id') == "itemListBody") {
                     $('#itemList').slideUp();
                     $('#itemInfo').slideDown();
+
+                    setTimeout(function () {
+                        $('textarea').each(function () {
+                            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+                        }).on('input', function () {
+                            this.style.height = 'auto';
+                            this.style.height = (this.scrollHeight) + 'px';
+                        });
+                    }, 300);
                 }
                 else if ($(this).closest('tbody').attr('id') == "partListBody") {
                     $('#partList').slideUp();
@@ -3103,7 +3112,7 @@
                     <div id="searched" style="display:none">
                         <div class="container-fluid">
                             <div class="input-group col-md-offset-3 col-md-6">
-                                <input type="search" class="form-control" value="Wheel"/>
+                                <input type="search" class="form-control" value="1"/>
                                 <span class="input-group-btn">
                                     <button class="btn btn-secondary" type="button">
                                         <span class="fa fa-search"></span>
@@ -3114,19 +3123,22 @@
                         
                         <div class="container-fluid">
                           <div class="row">
-                            Content
+                            <a href="#content1"><h3>16-SoIn-4177</h3></a>
+                            <h5 style="margin-left: 10px;"><b>DN-number:</b> -, <b>Title:</b> test, <b>Project:</b> ---, <b>Created Date:</b> 2016-01-01, <b>Created By:</b> Sogeti Internal, <b>Reply Date:</b> 2016-03-15 <br /> <b>Validity:</b> 2016-03-15, <b>Contact Person:</b> Sogeti External, <b>Owner:</b> Internal, Sogeti , <b>E-mail:</b> example@sogeti.se , <b>Phone Number:</b> 07X-XXXXXXX</h5>
                           </div>
                         </div>
                         
                         <div class="container-fluid">
                           <div class="row">
-                            Content
+                            <a href="#content2"><h3>16-SoIn-4190</h3></a>
+                            <h5 style="margin-left: 10px;"><b>DN-number:</b> -, <b>Title:</b> test, <b>Project:</b> ---, <b>Created Date:</b> 2016-01-01, <b>Created By:</b> Sogeti Internal, <b>Reply Date:</b> 2016-03-15 <br /> <b>Validity:</b> 2016-03-15, <b>Contact Person:</b> Sogeti External, <b>Owner:</b> Internal, Sogeti , <b>E-mail:</b> example@sogeti.se , <b>Phone Number:</b> 07X-XXXXXXX</h5>
                           </div>
                         </div>
                         
                         <div class="container-fluid">
                           <div class="row">
-                            Content
+                            <a href="#content3"><h3>15-SoIn-4100</h3></a>
+                            <h5 style="margin-left: 10px;"><b>DN-number:</b> -, <b>Title:</b> test, <b>Project:</b> ---, <b>Created Date:</b> 2016-01-01, <b>Created By:</b> Sogeti Internal, <b>Reply Date:</b> 2016-03-15 <br /> <b>Validity:</b> 2016-03-15, <b>Contact Person:</b> Sogeti External, <b>Owner:</b> Internal, Sogeti , <b>E-mail:</b> example@sogeti.se , <b>Phone Number:</b> 07X-XXXXXXX</h5>
                           </div>
                         </div>
                     </div>
