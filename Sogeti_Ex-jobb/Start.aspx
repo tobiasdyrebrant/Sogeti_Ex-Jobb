@@ -27,6 +27,7 @@
     <link href="Content/settings.css" rel="stylesheet" />
     <link href="Content/fixed-table-header.css" rel="stylesheet" />
     <link href="Content/responsive-table.css" rel="stylesheet" />
+    <link href="Content/nav-wizard.bootstrap.css" rel="stylesheet" />
 
     <!-- Font-awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
@@ -101,6 +102,10 @@
             autocollapse(); // when document first loads
             $('tbody').css("height", $(window).height() - $('#footer').height() - $('#tabs').height() - $('#pageHeader').height() - $('#rfqTopRow').height() - $('th').height() - 50);
 
+
+           
+
+
             if ($(window).width() <= 799) {
                 $('.table-fixed').stacktable();
                 small = true;
@@ -113,7 +118,18 @@
                 $('#pillListDNItemPage').removeClass('nav-stacked');
                 $('#pillListClaims').removeClass('nav-stacked');
                 $('#pillListSupplierAnalysis').removeClass('nav-stacked');
-                
+
+                $('#arrows').hide();
+                $('#rfqNavBars').removeClass('col-md-10');
+                $('#rfqNavBars').addClass('col-md-12');
+
+                $('#arrows2').hide();
+                $('#DNNavBars').removeClass('col-md-10');
+                $('#DNNavBars').addClass('col-md-12'); 
+
+                $('#arrows3').hide();
+                $('#claimsNavBar').removeClass('col-md-10');
+                $('#claimsNavBar').addClass('col-md-12');
                 smallPills = true; 
             }
 
@@ -124,7 +140,6 @@
 
                 if ($(window).width() <= 799 && !small) {
                     $('.table-fixed').stacktable();
-                            
                     small = true;
 
                 }
@@ -141,6 +156,20 @@
                     $('#pillListDNItemPage').removeClass('nav-stacked');
                     $('#pillListClaims').removeClass('nav-stacked');
                     $('#pillListSupplierAnalysis').removeClass('nav-stacked');
+
+                    $('#arrows').hide();
+                    $('#rfqNavBars').removeClass('col-md-10');
+                    $('#rfqNavBars').addClass('col-md-12');
+
+                    $('#arrows2').hide();
+                    $('#DNNavBars').removeClass('col-md-10');
+                    $('#DNNavBars').addClass('col-md-12');
+
+                    $('#arrows3').hide();
+                    $('#claimsNavBar').removeClass('col-md-10');
+                    $('#claimsNavBar').addClass('col-md-12');
+
+
                     smallPills = true;
                 }
                 else if(($(window).width() >= 977 && smallPills)) {
@@ -150,12 +179,23 @@
                     $('#pillListDNItemPage').addClass('nav-stacked');
                     $('#pillListClaims').addClass('nav-stacked');
                     $('#pillListSupplierAnalysis').addClass('nav-stacked');
+
+                    $('#arrows').show();
+                    $('#rfqNavBars').removeClass('col-md-12');
+                    $('#rfqNavBars').addClass('col-md-10');
+
+                    $('#arrows2').show();
+                    $('#DNNavBars').removeClass('col-md-12');
+                    $('#DNNavBars').addClass('col-md-10');
+
+                    $('#arrows3').show();
+                    $('#claimsNavBar').removeClass('col-md-12');
+                    $('#claimsNavBar').addClass('col-md-10');
                     smallPills = false;
                 }
 
-                if($(window).width() >= 800)
-                {
-                    $('tbody').css("height", $(window).height() - $('#footer').height() - $('#tabs').height() - $('#pageHeader').height() - $('#rfqTopRow').height() - $('th').height() - 50)
+                if($(window).width() >= 800) {
+                    $('tbody').css("height", $(window).height() - $('#footer').height() - $('#tabs').height() - $('#pageHeader').height() - $('#rfqTopRow').height() - $('th').height() - 50);
                     //$('table').height($(window).height() - $('#footer').height() - $('#tabs').height() - $('#pageHeader').height() - $('#rfqTopRow').height());
                 }
 
@@ -214,25 +254,25 @@
                     $('html,body').scrollTop(scrollmem);
                 });
 
-                $('.nav-pills a').click(function (e) {
-                    $(this).tab('show');
-                    var scrollmem = $('body').scrollTop() || $('html').scrollTop();
-                    window.location.hash = this.hash;
-                    $('html,body').scrollTop(scrollmem);
-                });
+            //    $('.nav-pills a').click(function (e) {
+            //        $(this).tab('show');
+            //        var scrollmem = $('body').scrollTop() || $('html').scrollTop();
+            //        window.location.hash = this.hash;
+            //        $('html,body').scrollTop(scrollmem);
+            //    });
             });
 
-            $(function () {
-                var hash = window.location.hash;
-                hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+            //$(function () {
+            //    var hash = window.location.hash;
+            //    hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 
-                $('.table-fixed a').click(function (e) {
-                    $(this).tab('show');
-                    var scrollmem = $('body').scrollTop() || $('html').scrollTop();
-                    window.location.hash += this.hash;
-                    $('html,body').scrollTop(scrollmem);
-                });
-            });
+            //    $('.table-fixed a').click(function (e) {
+            //        $(this).tab('show');
+            //        var scrollmem = $('body').scrollTop() || $('html').scrollTop();
+            //        window.location.hash += this.hash;
+            //        $('html,body').scrollTop(scrollmem);
+            //    });
+            //});
 
 
             $(document).keypress(function (e) {              
@@ -369,10 +409,8 @@
             });
 
             $('#searchButton').on('click', function () {
-                $('#searching').slideUp();
-                $('#searched').slideDown();
+                $('#searchTabToggle').trigger('click');
             });
-
 
         });
 
@@ -381,21 +419,30 @@
 </head>
 
 <body>
-    
 
     <div class="container-fluid" style="background-color:#0a8bb7;" id="pageHeader">
         <div class="row vertical-align">
             <div class="col-md-1">
                 <img src="Content/logotyp.jpg" class="" alt="Atlas Copco" width="83" height="40" /> 
             </div>
-            <div class="col-md-4">
+
+            <div class="col-md-3">
                 <span style="color: white;">
                     <strong>Leverantör \ Sogeti External</strong>
                     |           SCP
                 </span> 
             </div>
+            
+            <div class="input-group col-md-4">
+                <input type="search" class="form-control" placeholder="Article number" />
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary searchButton" type="button" id="searchButton">
+                        <span class="fa fa-search"></span>
+                    </button>
+                </span>
+            </div>
 
-            <div class="col-md-offset-3 col-md-1"> 
+            <div class="col-md-1"> 
                 <div class="dropdown ">
                     <button class="dropbtn"><span class="fa fa-bell-o"><span class="label label-pill label-danger">6</span></span></button>
                     <div class="dropdown-content dropdown-menu-right">
@@ -448,7 +495,7 @@
                 <li><a data-toggle="tab" href="#designNotifications" id="designNotificationsToggle">Design Notification</a></li>
                 <li><a data-toggle="tab" href="#claims">Claims</a></li>
                 <li><a data-toggle="tab" href="#supplierAnalysis">Supplier Analysis</a></li>	  
-                <li><a data-toggle="tab" href="#searchTab">Search</a></li>	
+                <li style="display: none;"><a data-toggle="tab" href="#searchTab" id="searchTabToggle">Search</a></li>	
 
                 <li id="lastTab" >
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -466,39 +513,55 @@
 
                 <div id="RFQ" class ="tab-pane fade">
 
-                    <div id="rfqHome">
-                        <div class="col-md-2">          
-                            <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListRfqHome">
-                                <li class="active"><a data-toggle="pill" href="#RFQ#new">New<span class="glyphicon glyphicon-grain pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#RFQ#workInProgress">Work in Progress<span class="fa fa-wrench pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
-                                <li><a data-toggle="pill" href="#RFQ#waitingEvaluation">Waiting Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#RFQ#waitingConfirmation">Waiting Confirmation<span class="fa fa-hourglass-half pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#RFQ#closed">Closed<span class="fa fa-close pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#RFQ#archived">Archived<span class="fa fa-archive pull-right"></span></a></li>      
-                                <li class="dropup"> <a href="#RFQ#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="fa fa-search pull-right"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Divison" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-secondary" type="button">
-                                                        Set
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <input type="search" class="form-control" placeholder="Search" />
-                                        </li>
-                                        <li>
-                                            <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
-                                        </li>
-                                    </ul>
-                                </li>                                 
-                            </ul>
-                        </div>
+                    <div id="rfqHome" >
 
-                        <div class="container col-md-10">
+                        <div class="container col-md-3">
+                            
+                            <div class="row">
+                                <div class="col-md-1" id="arrows" >          
+                                    <ul class="nav nav-pills nav-stacked" role="tablist">    
+                                        <li><img src="Content/curved.png" class="firstcurvedArrow"/>  </li>   
+                                        <li><img src="Content/curved.png" class="curvedArrow"/>  </li>   
+                                        <li><img src="Content/curved.png" class="curvedArrow"/>  </li>   
+                                        <li><img src="Content/curved.png" class="curvedArrow"/>  </li>   
+                                        <li><img src="Content/curved.png" class="curvedArrow"/>  </li>  
+                                    </ul>        
+                                </div>
+                                <div class="col-md-10" id="rfqNavBars">        
+                                    <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListRfqHome">
+                                        <li class="active"><a data-toggle="pill" href="#new">New<span class="glyphicon glyphicon-grain pull-right"></span></a></li>
+                                        <li><a data-toggle="pill" href="#workInProgress">Work in Progress<span class="fa fa-wrench pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
+                                        <li><a data-toggle="pill" href="#waitingEvaluation">Waiting Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
+                                        <li><a data-toggle="pill" href="#waitingConfirmation">Waiting Confirmation<span class="fa fa-hourglass-half pull-right"></span></a></li>
+                                        <li><a data-toggle="pill" href="#closed">Closed<span class="fa fa-close pull-right"></span></a></li>
+                                        <li><a data-toggle="pill" href="#archived">Archived<span class="fa fa-archive pull-right"></span></a></li>      
+                                        <li class="dropup"><a href="#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="fa fa-search pull-right"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="Divison" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-secondary" type="button">
+                                                                Set
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <input type="search" class="form-control" placeholder="Search" />
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>                                 
+                                    </ul>
+                                 </div>  
+                            </div>
+                        </div>
+                       
+
+                        <div class="container col-md-9">
                             <div class="row">
                                 <div class="">
                                     <table class="table table-fixed">
@@ -1515,37 +1578,49 @@
  
                 <div id="designNotifications" class ="tab-pane fade">
                 
-                    <div id="designNotificationsHome">                      
-                        <div class="col-md-2">          
-                            <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListDesignNotifications">
-                                <li class="active"><a data-toggle="pill" href="#DesignNotifications#Unread">Unread<span class="fa fa-envelope pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#DesignNotifications#WorkInProgress">Work in Progress<span class="fa fa-wrench pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
-                                <li><a data-toggle="pill" href="#DesignNotifications#Evaluation">Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
-                                <li><a data-toggle="pill" href="#DesignNotifications#Closed">Closed<span class="fa fa-close pull-right"></span></a></li>  
-                                <li class="dropup"> <a href="#DesignNotifications#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="fa fa-search pull-right"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Divison" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-secondary" type="button">
-                                                        Set
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <input type="search" class="form-control" placeholder="Search" />
-                                        </li>
-                                        <li>
-                                            <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
-                                        </li>
+                    <div id="designNotificationsHome">                  
+                        <div class="container col-md-3"> 
+                            <div class="row">
+                                <div class="col-md-1" id="arrows2" >          
+                                    <ul class="nav nav-pills nav-stacked" role="tablist">    
+                                        <li><img src="Content/curved.png" class="firstcurvedArrow"/>  </li>   
+                                        <li><img src="Content/curved.png" class="curvedArrow"/>  </li>   
+                                        <li><img src="Content/curved.png" class="curvedArrow"/>  </li>      
+                                    </ul>        
+                                </div>
+
+                                <div class="col-md-10" id="DNNavBars">        
+                                    <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListDesignNotifications">
+                                        <li class="active"><a data-toggle="pill" href="#DesignNotifications#Unread">Unread<span class="fa fa-envelope pull-right"></span></a></li>
+                                        <li><a data-toggle="pill" href="#DesignNotifications#WorkInProgress">Work in Progress<span class="fa fa-wrench pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
+                                        <li><a data-toggle="pill" href="#DesignNotifications#Evaluation">Evaluation<span class="fa fa-coffee pull-right"></span></a></li>
+                                        <li><a data-toggle="pill" href="#DesignNotifications#Closed">Closed<span class="fa fa-close pull-right"></span></a></li>  
+                                        <li class="dropup"> <a href="#DesignNotifications#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="fa fa-search pull-right"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="Divison" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-secondary" type="button">
+                                                                Set
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <input type="search" class="form-control" placeholder="Search" />
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
+                                                </li>
+                                            </ul>
+                                        </li>                                                                
                                     </ul>
-                                </li>                                                                
-                            </ul>
+                                </div>
+                            </div>   
                         </div>
                         
-                        <div class="container col-md-10">
+                        <div class="container col-md-9">
                             <div class="row">
                                 <div class="">
                                     <table class="table table-fixed DNTable" id="DNTable">
@@ -1741,8 +1816,10 @@
                             </div>
                         </div>
                     </div>
+                        
                     
-                    <div id="designNotificationsItem">
+                    
+                    <div id="designNotificationsItem" style="display: none;">
                         <div class="col-md-2">     
                             <h4>mailtest1</h4>
                             <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListDNItemPage">
@@ -2050,7 +2127,7 @@
                                             </div>
                                         
                                             <div class="form-group col-md-2" style="margin-top: 10px;">
-                                                <label for="safetyDetail">Dangerous goods</label><br />
+                                                <label for="safetyDetail">Safety detail</label><br />
                                                 <div class="btn-group">
                                                     <div class="dropdown" id="safetyDetail" style="float:left;">
                                                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
@@ -2079,7 +2156,7 @@
                                             <div class="form-group col-md-3" style="margin-top: 10px;">
                                                 <label for="contactPersonPartInfo">Contact Person</label><br />
                                                 <div class="btn-group">
-                                                    <div class="dropup" id="contactPersonPartInfo" style="float:left;">
+                                                    <div class="dropup dropdown" id="contactPersonPartInfo" style="float:left;">
                                                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="min-width: 300px;" >
                                                             Select option
                                                             <span class="caret pull-right"></span>
@@ -2385,49 +2462,64 @@
                 </div>
 
                 <div id="claims" class ="tab-pane fade">
-                    <div class="col-md-2">          
-                        <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListClaims">
-                            <li class="active"><a data-toggle="pill" href="#new">New<span class="glyphicon glyphicon-grain pull-right"></span></a></li>
-                            <li><a data-toggle="pill" href="#rejected">Rejected<span class="fa fa-thumbs-o-down pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
-                            <li><a data-toggle="pill" href="#recieved">Recieved<span class="fa fa-download pull-right"></span></a></li>
-                            <li><a data-toggle="pill" href="#partiallyAnswered">Partially Answered<span class="fa fa-hourglass-half pull-right"></span></a></li>
-                            <li><a data-toggle="pill" href="#inReview">In Review<span class="fa fa-file-video-o pull-right"></span></a></li>
-                            <li><a data-toggle="pill" href="#closed">Closed<span class="fa fa-close pull-right"></span></a></li>  
-                            <li><a data-toggle="pill" href="#archived">Archived<span class="fa fa-archive pull-right"></span></a></li>         
-                            <li class="dropup"> <a href="#RFQ#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="fa fa-search pull-right"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Divison" />
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-secondary" type="button">
-                                                    Set
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <input type="search" class="form-control" placeholder="Search" />
-                                    </li>
-                                    <li>
-                                        <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
-                                    </li>
+                    <div class="container col-md-3"> 
+                        <div class="row">
+                            <div class="col-md-1" id="arrows3" >   
+                                <ul class="nav nav-pills nav-stacked" role="tablist">    
+                                    <li><img src="Content/curved.png" class="firstcurvedArrow"/>  </li>   
+                                    <li><img src="Content/curved.png" class="curvedArrow"/>  </li>   
+                                    <li><img src="Content/curved.png" class="curvedArrow"/>  </li>   
+                                    <li><img src="Content/curved.png" class="curvedArrow"/>  </li>   
+                                    <li><img src="Content/curved.png" class="curvedArrow"/>  </li>  
+                                    <li><img src="Content/curved.png" class="curvedArrow"/>  </li>  
+                                </ul>        
+                            </div>
+                                      
+                            <div class="col-md-10" id="claimsNavBar">       
+                                <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListClaims">
+                                    <li class="active"><a data-toggle="pill" href="#new">New<span class="glyphicon glyphicon-grain pull-right"></span></a></li>
+                                    <li><a data-toggle="pill" href="#rejected">Rejected<span class="fa fa-thumbs-o-down pull-right"></span><span class="label label-pill label-danger" style="border-radius: 1em;">2</span></a></li>
+                                    <li><a data-toggle="pill" href="#recieved">Recieved<span class="fa fa-download pull-right"></span></a></li>
+                                    <li><a data-toggle="pill" href="#partiallyAnswered">Partially Answered<span class="fa fa-hourglass-half pull-right"></span></a></li>
+                                    <li><a data-toggle="pill" href="#inReview">In Review<span class="fa fa-file-video-o pull-right"></span></a></li>
+                                    <li><a data-toggle="pill" href="#closed">Closed<span class="fa fa-close pull-right"></span></a></li>  
+                                    <li><a data-toggle="pill" href="#archived">Archived<span class="fa fa-archive pull-right"></span></a></li>         
+                                    <li class="dropup"> <a href="#RFQ#search" class="dropdown-toggle" data-toggle="dropdown">Search Settings <span class="fa fa-search pull-right"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="Divison" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-secondary" type="button">
+                                                            Set
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <input type="search" class="form-control" placeholder="Search" />
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-remove">Clear</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>                                 
                                 </ul>
-                            </li>                                 
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div id="supplierAnalysis" class="tab-pane fade">
                    <div class="col-md-2">          
                        <ul class="nav nav-pills nav-stacked" role="tablist" id="pillListSupplierAnalysis">
-                            <li class="active"><a data-toggle="pill" href="#meritPoint" style="height: 40px;">Merit Point</a></li>
-                            <li><a data-toggle="pill" href="#claimsPPM" style="height: 40px;">Claims/PPM</a></li>
-                            <li><a data-toggle="pill" href="#deliveryPrecision" style="height: 40px;">Delivery Precision</a></li>
-                            <li><a data-toggle="pill" href="#leadTime" style="height: 40px;">Lead Time</a></li>
-                            <li><a data-toggle="pill" href="#orderAcknowledgement" style="height: 40px;">Order Acknowledgement</a></li>
-                            <li><a data-toggle="pill" href="#purchaseVolume" style="height: 40px;">Purchase Volume</a></li>      
-                            <li><a data-toggle="pill" href="#forecast" style="height: 40px;">Forecast</a></li>                               
+                            <li class="active"><a data-toggle="pill" href="#meritPoint" >Merit Point</a></li>
+                            <li><a data-toggle="pill" href="#claimsPPM" >Claims/PPM</a></li>
+                            <li><a data-toggle="pill" href="#deliveryPrecision" >Delivery Precision</a></li>
+                            <li><a data-toggle="pill" href="#leadTime" >Lead Time</a></li>
+                            <li><a data-toggle="pill" href="#orderAcknowledgement" >Order Acknowledgement</a></li>
+                            <li><a data-toggle="pill" href="#purchaseVolume" >Purchase Volume</a></li>      
+                            <li><a data-toggle="pill" href="#forecast">Forecast</a></li>                               
                         </ul>
                     </div>
                     
@@ -3095,26 +3187,14 @@
 
                 </div>
                 
-                <div id="searchTab" class="tab-pane fade">
-                    <div id="searching" class="searchText">
-                        <h3>Search by article number</h3>
-                        <h6>This search will return places where the searched article can be found</h6>
-                        <div class="input-group col-md-offset-3 col-md-6">
-                            <input type="search" class="form-control" placeholder="Article number" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="button" id="searchButton">
-                                    <span class="fa fa-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </div> 
-                    
-                    <div id="searched" style="display:none">
+                <div id="searchTab" class="tab-pane fade">        
+                    <div id="searched" style="margin-top: 10px;">
                         <div class="container-fluid">
-                            <div class="input-group col-md-offset-3 col-md-6">
+                            <div class="input-group form-inline col-md-offset-3 col-md-6">
+                                <h5>Search</h5>                       
                                 <input type="search" class="form-control" value="1"/>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-secondary" type="button">
+                                    <button class="btn btn-secondary" type="button" style="margin-top: 35px; ">
                                         <span class="fa fa-search"></span>
                                     </button>
                                 </span>

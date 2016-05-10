@@ -94,7 +94,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\arrow.png" />
+    <Content Include="Content\curved.png" />
     <Content Include="Content\fixed-table-header.css" />
+    <Content Include="Content\nav-wizard.bootstrap.css" />
     <Content Include="Content\responsive-table.css" />
     <Content Include="Content\scrollTopStyle.css" />
     <Content Include="Content\settings.css" />
